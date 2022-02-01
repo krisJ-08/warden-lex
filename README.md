@@ -40,7 +40,7 @@ __2. Download the project in a ZIP folder__
 
 Click the green button "Code" and select "Download ZIP"
 
-
+Then extract the folder and open it
 
 __3. Click the path in the File Explorer like in the Image:__
 
