@@ -1,115 +1,118 @@
-%option yylineno
-
-digits      ([0-9])+
-letter      ([a-zA-Z])+
-COMMENT		"//".*\n
-WS		    [ \t]
-H			[a-fA-F0-9]
-E			[Ee][+-]?{letter}+
-FS			(f|F|l|L)
-IS			(u|U|l|L)*
-
-
+%option noyywrap
+ 
 %{
-
-#include <stdio.h>
-#include <string.h>
-#include "test.tab.h"
-void showError();
-unsigned int currentLineNumber = 1;
-
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <string.h>
+    int lineno = 1; // initialized number of line with 1
+    int words = 0;  //number of lexemes
+    void ret_print(char *token_type);
+    void yyerror();
 %}
 
+%x ML_COMMENT
+
+letter       [a-zA-Z]
+digit       [0-9]
+alnum       {letter}|{digit}
+print       [ -~]
+
+preprocessor_directives #.*
+ID          {letter}+{alnum}*
+ICONST      "0"|[0-9]{digit}*
+FCONST      "0"|{digit}*"."{digit}+
+CCONST      (\'{print}\')|(\'\\[nftrbv]\')
+STRING      \"{print}*\"
 
 %%
 
-"default"       return DEFAULT;
-"break" 		return BREAK ;
-"char" 		    return CHAR ;
-"continue" 		return CONTINUE ;
-"default" 		return DEFAULT ;
-"repeat" 		return REPEAT ;
-"double" 		return DOUBLE ;
-"else" 		    return ELSE ;
-"single" 		return SINGLE ;
-"for" 		    return FOR ;
-"if" 		    return IF ;
-"int" 		    return INT ;
-"return" 		return RETURN ;
-"switch" 		return SWITCH ;
-"until" 		return UNTIL ;
-"main" 		    return IDENTIFIER ;
-"yield"         return YIELD;
-"fn"            return FN;
-"unless         return UNLESS;
-"var"           return VAR;
-"dotimes"       return DOTIMES;
-"bool"          return BOOL;
-"true"          return TRUE;
-"false"         return FALSE;
-"+" 		    return PLUS ;
-"-" 	    	return MINUS ;
-"*" 	    	return TIMES ;
-"/" 	    	return DIV ;
-"%" 	    	return MODULO ;
-"=" 	    	return EQUALS ;
-"&" 	    	return BITAND ;
-"|" 	    	return BITOR ;
-"^" 	    	return BITXOR ;
-"!" 	    	return NOT ;
-"<" 	    	return LESS ;
-">"     		return GREATER ;
-"[" 	    	return LS ;
-"]" 	    	return RS ;
-"{" 	    	return LB ;
-"}" 	    	return RB ;
-"(" 	    	{return LP ;}
-")" 	    	return RP ;
-"?" 	    	return QMARK ;
-":" 	    	return COLON ;
-"." 	    	return DOT ;
-";" 	    	return SEMI ;
-"," 	    	return COMMA ;
-"+=" 	    	return PLUSEQ ;
-"-=" 	    	return MINUSEQ ;
-"*=" 	    	return TIMESEQ ;
-"/=" 	    	return DIVEQ ;
-"%=" 	    	return MODULOEQ ;
-"&=" 	    	return EMPEQ ;
-"&&" 	    	return AND ;
-"||" 	    	return OR ;
-"==" 	    	return REQUALS ;
-"!=" 	    	return NOTEQUAL ;
-"<=" 	    	return LESSEQ ;
-">=" 	    	return GREATEREQ ;
-"++" 	    	return INCR ;
-"--" 	    	return DECR ;
-"//"            return SLC;
-"/*"            return MLCO;
-"*/"            return MLCC;
+"//".*                  { printf("Eat up comment at line %d\n", lineno); } 
+ 
+"/*"                    { printf("Eat up comment from line %d ", lineno); BEGIN(ML_COMMENT); }
+<ML_COMMENT>"*/"        { printf("to line %d\n", lineno); BEGIN(INITIAL); }
+<ML_COMMENT>[^*\n]+     
+<ML_COMMENT>"*"         
+<ML_COMMENT>"\n"        { lineno += 1; }
+ 
+ 
+"char"|"CHAR"           { ret_print("KEYWORD_CHAR"); }
+"int"|"INT"             { ret_print("KEYWORD_INT"); }
+"single"|"SINGLE"       { ret_print("KEYWORD_SINGLE"); }
+"if"|"IF"               { ret_print("KEYWORD_IF"); }
+"else"|"ELSE"           { ret_print("KEYWORD_ELSE"); }
+"while"|"WHILE"         { ret_print("KEYWORD_WHILE"); }
+"for"|"FOR"             { ret_print("KEYWORD_FOR"); }
+"continue"|"CONTINUE"   { ret_print("KEYWORD_CONTINUE"); }
+"break"|"BREAK"         { ret_print("KEYWORD_BREAK"); }
+"return"|"RETURN"       { ret_print("KEYWORD_RETURN"); }
+"default"|"DEFAULT"     { ret_print("KEYWORD_DEFAULT"); }
+"yield"|"YIELD"         { ret_print("KEYWORD_YIELD"); }
+"unless"|"UNLESS"       { ret_print("KEYWORD_UNLESS"); }
+"dotimes"|"DOTIMES"     { ret_print("KEYWORD_DOTIMES"); }
+"switch"|"SWITCH"       { ret_print("KEYWORD_SWITCH"); }
+"main"                  { ret_print("KEYWORD_MAIN"); }
+"false"|"FALSE"         { ret_print("KEYWORD_FALSE"); }
+"true"|"TRUE"           { ret_print("KEYWORD_TRUE"); }
+"var"|"VAR"             { ret_print("KEYWORD_VAR"); }
+"string"|"STRING"       { ret_print("KEYWORD_STRING"); }
+"fn"|"FN"               { ret_print("KEYWORD_FUNCTION"); }
+"do"|"DO"               { ret_print("KEYWORD_DO"); }
+"bool"|"BOOL"           { ret_print("KEYWORD_BOOL"); }
 
-{L}({L}|{D})*			return IDENTIFIER ;
-0[xX]{H}+{IS}?			return NUMBER ;
-0{D}+{IS}?				return NUMBER ;
-{D}+{IS}?				return NUMBER ;
+ 
+ 
+"+"|"-"                 { ret_print("ADDOP"); }
+"*"                     { ret_print("MULOP"); }
+"/"                     { ret_print("DIVOP"); }
+"++"|"--"               { ret_print("INCR"); }
+"||"                    { ret_print("OROP"); }
+"&&"                    { ret_print("ANDOP"); }
+"!"                     { ret_print("NOTOP"); }
+"=="|"!="               { ret_print("EQUOP"); }
+">"|"<"|">="|"<="       { ret_print("RELOP"); }
+ 
+ 
+"("             { ret_print("LPAREN"); }
+")"             { ret_print("RPAREN"); }
+"["             { ret_print("LBRACK"); }
+"]"             { ret_print("RBRACK"); }
+"{"             { ret_print("LBRACE"); }
+"}"             { ret_print("RBRACE"); }
+";"             { ret_print("SEMI"); }
+"."             { ret_print("DOT"); }
+","             { ret_print("COMMA"); }
+"="             { ret_print("ASSIGN"); }
+"&"             { ret_print("REFER"); }
 
-L?'(\\.|[^\\'])+'		return NUMBER ; 
-{D}+{E}{FS}?			return NUMBER ;
-{D}*"."{D}+({E})?{FS}?	return NUMBER ;
-{D}+"."{D}*({E})?{FS}?	return NUMBER ;
-.						{ /* ignore bad characters */ }
-{WS}		            ;
-{COMMENT}	            ++currentLineNumber;
-\n		                ++currentLineNumber;
+{preprocessor_directives} { ret_print("PREPROCESSOR DIRECTIVES"); }
+{ID}            { ret_print("ID"); }
+{ICONST}        { ret_print("ICONST"); }
+{FCONST}        { ret_print("FCONST"); }
+{CCONST}        { ret_print("CCONST"); }
+{STRING}        { ret_print("STRING"); }
+ 
 
-
+"\n"*           { lineno += 1; }
+[ \t\r\f]+          /* eat up whitespace */
+ 
+.               { yyerror("Unrecognized character"); }
+ 
 %%
-
-int yywrap(void)
-{
-	return 1 ;
+ 
+void ret_print(char *token_type){
+    words++;
+    printf("yytext: %s\ttoken: %s\tlineno: %d\n", yytext, token_type, lineno);
 }
-
-void showError(){
-    printf("Other input");
+ 
+void yyerror(char *message){
+    printf("Error: \"%s\" in line %d. Token = %s\n", message, lineno, yytext);
+    exit(1);
+}
+ 
+int main(int argc, char *argv[]){
+    yyin = fopen(argv[1], "r");
+    yylex();
+    fclose(yyin);
+    printf("Number of Lexemes = %d\n", words);
+    return 0;
 }
