@@ -16,7 +16,6 @@ letter      [a-zA-Z]
 digit       [0-9]
 alnum       {letter}|{digit}
 print       [ -~]
-ws          [ \t\r\f\v]+
 
 preprocessor_directives #.*
 ID          {letter}+{alnum}*
@@ -100,10 +99,6 @@ STRING      \"{print}*\"
 {CCONST}        { ret_print("CCONST"); }
 {STRING}        { ret_print("STRING"); }
 
-
-"\n"*           { lineno += 1; }
-{ws}            { ret_print("WHITESPACE"); }
- 
 .               { yyerror("Unrecognized character"); }
  
 %%
