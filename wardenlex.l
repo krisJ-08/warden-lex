@@ -12,10 +12,11 @@
 
 %x ML_COMMENT
 
-letter       [a-zA-Z]
+letter      [a-zA-Z]
 digit       [0-9]
 alnum       {letter}|{digit}
 print       [ -~]
+ws          [ \t\r\f\v]+
 
 preprocessor_directives #.*
 ID          {letter}+{alnum}*
@@ -26,10 +27,10 @@ STRING      \"{print}*\"
 
 %%
 
-"//".*                  { printf("Eat up comment at line %d\n", lineno); } 
+"//".*                  { printf("Line is commented at line %d\n", lineno); } 
  
-"/*"                    { printf("Eat up comment from line %d ", lineno); BEGIN(ML_COMMENT); }
-<ML_COMMENT>"*/"        { printf("to line %d\n", lineno); BEGIN(INITIAL); }
+"/*"                    { printf("Start of comment from line %d ", lineno); BEGIN(ML_COMMENT); }
+<ML_COMMENT>"*/"        { printf("Ends to line %d\n", lineno); BEGIN(INITIAL); }
 <ML_COMMENT>[^*\n]+     
 <ML_COMMENT>"*"         
 <ML_COMMENT>"\n"        { lineno += 1; }
@@ -61,15 +62,23 @@ STRING      \"{print}*\"
 
  
  
-"+"|"-"                 { ret_print("ADDOP"); }
+"+"                     { ret_print("minOP"); }
+"-"                     { ret_print("ADDOP"); }
 "*"                     { ret_print("MULOP"); }
 "/"                     { ret_print("DIVOP"); }
-"++"|"--"               { ret_print("INCR"); }
+"++"                    { ret_print("IINCROP"); }
+"--"                    { ret_print("DINCROP"); }
 "||"                    { ret_print("OROP"); }
 "&&"                    { ret_print("ANDOP"); }
 "!"                     { ret_print("NOTOP"); }
-"=="|"!="               { ret_print("EQUOP"); }
-">"|"<"|">="|"<="       { ret_print("RELOP"); }
+"=="                    { ret_print("EQUOP"); }
+"!="                    { ret_print("NOTEQUOP"); }
+">"                     { ret_print("GTHANOP"); }
+"<"                     { ret_print("LTHANOP"); }
+">="                    { ret_print("GEQTHANOP"); }
+"<="                    { ret_print("LEQTHANOP"); }
+"**"                    { ret_print("EXPOP"); }
+"%"                     { ret_print("MODOP"); }
  
  
 "("             { ret_print("LPAREN"); }
@@ -90,10 +99,10 @@ STRING      \"{print}*\"
 {FCONST}        { ret_print("FCONST"); }
 {CCONST}        { ret_print("CCONST"); }
 {STRING}        { ret_print("STRING"); }
- 
+
 
 "\n"*           { lineno += 1; }
-[ \t\r\f]+          /* eat up whitespace */
+{ws}            { ret_print("WHITESPACE"); }
  
 .               { yyerror("Unrecognized character"); }
  
