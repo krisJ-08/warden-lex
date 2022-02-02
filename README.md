@@ -54,9 +54,15 @@ __4. Run the Lex file__
 flex wardenlex.l    \\ It will generate the lex.yy.c file
 gcc lex.yy.c        \\ This will generate the exe program of the language
 a.exe               \\ This is the execuatable program
+sample              \\ The sample Warden source code
+                    \\ You can change the source code with different keywords etc.
 ```
 __5. Try typing the keywords or operations__
 
-    default if else yield dotimes
+    It will prompt you to type the filename of the source code which is "sample"
+    
+    Then it will display the lexemes and tokens of the source code
+    
+    _Outdated image file, may replace later. Research muna haha_
     
 ![image](https://user-images.githubusercontent.com/77821151/151992676-21d8070e-06e7-442f-92a0-61d515a45cfb.png)
