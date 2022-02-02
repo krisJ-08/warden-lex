@@ -11,7 +11,7 @@ http://gnuwin32.sourceforge.net/packages/bison.htm
 
 *Install also the Bison compiler for the semantics in the future*
 
-*Install the Flex in the root folder or the C: folder directly*
+*Install the Flex and C Compiler in the root folder or the C: folder directly*
 
     After installation, locate the installation folder called "GnuWin32" and open "bin" folder.
 
@@ -51,9 +51,9 @@ __3. Click the path in the File Explorer like in the Image:__
     
 __4. Run the Lex file__
 ```
-flex wardenlex.l \\ It will generate the lex.yy.c file
-gcc lex.yy.c \\ This will generate the exe program of the language
-a.exe \\ This is the execuatable program
+flex wardenlex.l    \\ It will generate the lex.yy.c file
+gcc lex.yy.c        \\ This will generate the exe program of the language
+a.exe               \\ This is the execuatable program
 ```
 __5. Try typing the keywords or operations__
 
