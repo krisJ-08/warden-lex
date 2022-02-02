@@ -1,0 +1,83 @@
+Lexeme: fn	Token: KEYWORD_FUNCTION	LineNo: 1
+Lexeme: int	Token: KEYWORD_INT	LineNo: 1
+Lexeme: main	Token: RESWORD_MAIN	LineNo: 1
+Lexeme: (	Token: LPAREN	LineNo: 1
+Lexeme: )	Token: RPAREN	LineNo: 1
+Lexeme: {	Token: LBRACE	LineNo: 1
+Lexeme: int	Token: KEYWORD_INT	LineNo: 2
+Lexeme: a	Token: ID	LineNo: 2
+Lexeme: =	Token: ASSIGN	LineNo: 2
+Lexeme: 10	Token: ICONST	LineNo: 2
+Lexeme: ;	Token: SEMI	LineNo: 2
+Lexeme: int	Token: KEYWORD_INT	LineNo: 3
+Lexeme: b	Token: ID	LineNo: 3
+Lexeme: =	Token: ASSIGN	LineNo: 3
+Lexeme: 45346765	Token: ICONST	LineNo: 3
+Lexeme: ;	Token: SEMI	LineNo: 3
+Lexeme: char	Token: KEYWORD_CHAR	LineNo: 4
+Lexeme: str[]	Token: ARRAY	LineNo: 4
+Lexeme: =	Token: ASSIGN	LineNo: 4
+Lexeme: "Hello World"	Token: STRING	LineNo: 4
+Lexeme: ;	Token: SEMI	LineNo: 4
+Line is commented at line 5
+Error: "INVALID" in line 6. Lexeme = \
+Lexeme: t	Token: ID	LineNo: 6
+Lexeme: int	Token: KEYWORD_INT	LineNo: 7
+Lexeme: arr[]	Token: ARRAY	LineNo: 7
+Lexeme: =	Token: ASSIGN	LineNo: 7
+Lexeme: {	Token: LBRACE	LineNo: 7
+Lexeme: 1	Token: ICONST	LineNo: 7
+Lexeme: ,	Token: COMMA	LineNo: 7
+Lexeme: 2	Token: ICONST	LineNo: 7
+Lexeme: ,	Token: COMMA	LineNo: 7
+Lexeme: 3	Token: ICONST	LineNo: 7
+Lexeme: ,	Token: COMMA	LineNo: 7
+Lexeme: 4	Token: ICONST	LineNo: 7
+Lexeme: ,	Token: COMMA	LineNo: 7
+Lexeme: 5	Token: ICONST	LineNo: 7
+Lexeme: ,	Token: COMMA	LineNo: 7
+Lexeme: 6	Token: ICONST	LineNo: 7
+Lexeme: ,	Token: COMMA	LineNo: 7
+Lexeme: 7	Token: ICONST	LineNo: 7
+Lexeme: ,	Token: COMMA	LineNo: 7
+Lexeme: 8	Token: ICONST	LineNo: 7
+Lexeme: }	Token: RBRACE	LineNo: 7
+Lexeme: ;	Token: SEMI	LineNo: 7
+Lexeme: int	Token: KEYWORD_INT	LineNo: 8
+Lexeme: arr1[10]	Token: ARRAY	LineNo: 8
+Lexeme: ;	Token: SEMI	LineNo: 8
+Start of comment from line 9
+Ends to line 14
+Line is commented at line 15
+Lexeme: for	Token: KEYWORD_FOR	LineNo: 16
+Lexeme: (	Token: LPAREN	LineNo: 16
+Lexeme: int	Token: KEYWORD_INT	LineNo: 16
+Lexeme: i	Token: ID	LineNo: 16
+Lexeme: =	Token: ASSIGN	LineNo: 16
+Lexeme: 0	Token: ICONST	LineNo: 16
+Lexeme: ;	Token: SEMI	LineNo: 16
+Lexeme: i	Token: ID	LineNo: 16
+Lexeme: <	Token: LTHANOP	LineNo: 16
+Lexeme: 8	Token: ICONST	LineNo: 16
+Lexeme: ;	Token: SEMI	LineNo: 16
+Lexeme: i	Token: ID	LineNo: 16
+Lexeme: ++	Token: IINCROP	LineNo: 16
+Lexeme: )	Token: RPAREN	LineNo: 16
+Lexeme: {	Token: LBRACE	LineNo: 17
+Lexeme: b	Token: ID	LineNo: 18
+Lexeme: +	Token: MINOP	LineNo: 18
+Lexeme: =	Token: ASSIGN	LineNo: 18
+Lexeme: arr[i]	Token: ARRAY	LineNo: 18
+Lexeme: ;	Token: SEMI	LineNo: 18
+Lexeme: }	Token: RBRACE	LineNo: 19
+Lexeme: return	Token: KEYWORD_RETURN	LineNo: 20
+Lexeme: 0	Token: ICONST	LineNo: 20
+Lexeme: ;	Token: SEMI	LineNo: 20
+Lexeme: return	Token: KEYWORD_RETURN	LineNo: 21
+Lexeme: 0	Token: ICONST	LineNo: 21
+Lexeme: ;	Token: SEMI	LineNo: 21
+Lexeme: }	Token: RBRACE	LineNo: 22
+
+
+
+Total Tokens = 74
