@@ -1,0 +1,31 @@
+fn int main(){
+int a = 10;
+    int b = 45346765;
+    single = 54.78;
+    char = 'g';
+    string = "bossman"
+    int str[] = "Hello World";
+    bool false;
+    bool null;
+    //this is a comment
+\t
+
+    int arr[] = {1, 2, 3, 4, 5, 6, 7, 8};
+    int arr1[10];
+    /*
+    this
+    is
+    a
+    comment
+    */
+    // this is also a line comment
+
+
+    for (int i = 0; i < 8; i++)
+    {
+        b += arr[i];
+    }
+    return 0;
+
+    return 0;
+}
