@@ -4,8 +4,8 @@
     #include <stdio.h>
     #include <stdlib.h>
     #include <string.h>
-    int lineno = 1; // initialized number of line with 1
-    int words = 0;  //number of lexemes
+    int lineno = 1;
+    int words = 0;
     void ret_print(char *token_type);
     void yyerror();
     void ret_commt();
@@ -38,28 +38,28 @@ STRING      \"{print}*\"
 <ML_COMMENT>"\n"        { lineno += 1; }
  
  
-"char"|"CHAR"|"character"|"CHARACTER"           { ret_print("KEYWORD_CHAR"); }
+"char"|"CHAR"|"character"|"CHARACTER"       { ret_print("KEYWORD_CHAR"); }
 "int"|"INT"|"integer"|"INTEGER"             { ret_print("KEYWORD_INT"); }
-"single"|"SINGLE"       { ret_print("KEYWORD_SINGLE"); }
-"if"|"IF"               { ret_print("KEYWORD_IF"); }
-"else"|"ELSE"           { ret_print("KEYWORD_ELSE"); }
-"while"|"WHILE"         { ret_print("KEYWORD_WHILE"); }
-"for"|"FOR"             { ret_print("KEYWORD_FOR"); }
-"cont"|"CONT"|"continue"|"CONTINUE"  { ret_print("KEYWORD_CONTINUE"); }
-"break"|"BREAK"         { ret_print("KEYWORD_BREAK"); }
-"return"|"RETURN"       { ret_print("KEYWORD_RETURN"); }
-"default"|"DEFAULT"     { ret_print("KEYWORD_DEFAULT"); }
-"yield"|"YIELD"         { ret_print("KEYWORD_YIELD"); }
-"unless"|"UNLESS"       { ret_print("KEYWORD_UNLESS"); }
-"dotimes"|"DOTIMES"     { ret_print("KEYWORD_DOTIMES"); }
-"switch"|"SWITCH"       { ret_print("KEYWORD_SWITCH"); }
-"main"                  { ret_print("RESWORD_MAIN"); }
-"false"|"FALSE"         { ret_print("RESWORD_FALSE"); }
-"true"|"TRUE"           { ret_print("RESWORD_TRUE"); }
-"var"|"VAR"             { ret_print("KEYWORD_VAR"); }
-"string"|"STRING"       { ret_print("KEYWORD_STRING"); }
-"fn"|"FN"               { ret_print("KEYWORD_FUNCTION"); }
-"do"|"DO"               { ret_print("KEYWORD_DO"); }
+"single"|"SINGLE"                           { ret_print("KEYWORD_SINGLE"); }
+"if"|"IF"                                   { ret_print("KEYWORD_IF"); }
+"else"|"ELSE"                               { ret_print("KEYWORD_ELSE"); }
+"while"|"WHILE"                             { ret_print("KEYWORD_WHILE"); }
+"for"|"FOR"                                 { ret_print("KEYWORD_FOR"); }
+"cont"|"CONT"|"continue"|"CONTINUE"         { ret_print("KEYWORD_CONTINUE"); }
+"break"|"BREAK"                             { ret_print("KEYWORD_BREAK"); }
+"return"|"RETURN"                           { ret_print("KEYWORD_RETURN"); }
+"default"|"DEFAULT"                         { ret_print("KEYWORD_DEFAULT"); }
+"yield"|"YIELD"                             { ret_print("KEYWORD_YIELD"); }
+"unless"|"UNLESS"                           { ret_print("KEYWORD_UNLESS"); }
+"dotimes"|"DOTIMES"                         { ret_print("KEYWORD_DOTIMES"); }
+"switch"|"SWITCH"                           { ret_print("KEYWORD_SWITCH"); }
+"main"                                      { ret_print("RESWORD_MAIN"); }
+"false"|"FALSE"                             { ret_print("RESWORD_FALSE"); }
+"true"|"TRUE"                               { ret_print("RESWORD_TRUE"); }
+"var"|"VAR"                                 { ret_print("KEYWORD_VAR"); }
+"string"|"STRING"                           { ret_print("KEYWORD_STRING"); }
+"fn"|"FN"                                   { ret_print("KEYWORD_FUNCTION"); }
+"do"|"DO"                                   { ret_print("KEYWORD_DO"); }
 "bool"|"BOOL"|"boolean"|"BOOLEAN"           { ret_print("KEYWORD_BOOL"); }
 
  
