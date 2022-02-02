@@ -63,6 +63,6 @@ __5. Try typing the keywords or operations__
     
     Then it will display the lexemes and tokens of the source code
     
-    _Outdated image file, may replace later. Research muna haha_
+_Outdated image file, may replace later. Research muna haha_
     
 ![image](https://user-images.githubusercontent.com/77821151/151992676-21d8070e-06e7-442f-92a0-61d515a45cfb.png)
