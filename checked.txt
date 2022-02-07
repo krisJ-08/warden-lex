@@ -1,0 +1,61 @@
+ 
+"char"             /
+"int"|"integer"    /
+"single"           /
+"if"               /
+"else"             /
+"while"            /
+"for"              /
+"cont"|"continue"  
+"break"            
+"return"           /
+"default"          
+"submit"           
+"unless"           
+"dotimes"          /
+"switch"           
+"main"             /
+"false"            /
+"true"             /
+"var"              /
+"string"           /
+"fn"               /
+"do"               
+"bool"|"boolean"   /
+
+ 
+"+" 
+"-" 
+"*" 
+"/" 
+"++"
+"--"
+"||"
+"&&"
+"!" 
+"=="
+"!="
+">" 
+"<" 
+">="
+"<="
+"**"
+"%" 
+"+="
+"-="
+"*="
+"/="
+"%="
+ 
+ 
+"("
+")"
+"["
+"]"
+"{"
+"}"
+";"
+"."
+","
+"="
+"$"    

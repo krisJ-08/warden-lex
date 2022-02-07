@@ -1,17 +1,16 @@
-fn int main(){
-int a = 10;
-    int b = 45346765;
-    single = 54.78;
-    char = 'g';
-    string = "bossman"
-    int str[] = "Hello World";
-    bool false;
-    bool null;
+fn main(){
+    var a int = 69;
+    var b integer = 420
+    var dec single = 44.78;
+    var ttl single = 0.0;
+    var ltr char = 'g';
+    var boss string = "bossman"
+    var int arr[] = {1, 2, 3, 4, 5, 6, 7, 8};
+    var isCorrect bool =  false;
+    var isWrong boolean =  true;
     //this is a comment
 \t
 
-    int arr[] = {1, 2, 3, 4, 5, 6, 7, 8};
-    int arr1[10];
     /*
     this
     is
@@ -20,12 +19,33 @@ int a = 10;
     */
     // this is also a line comment
 
-
-    for (int i = 0; i < 8; i++)
+    for (var i int = 0; 8 > i; i++)
     {
-        b += arr[i];
+        
+        ttl = a + i;
+        ttl = b - i;
+        ttl = ttl * b;
+        ttl = a / ttl;
+        ttl = a % i;
+        b--;
+        ttl = 2 * i**2;
     }
-    return 0;
+
+    var NUM int = 15;
+
+    set(NUM);
 
     return 0;
+}
+
+fn set(num: int){
+    var i int = 0;
+    dotimes (i num){
+        if (i < 5 || i > 10){
+            print("First set: $i");
+        }
+        else {
+            print("Second set: $i")
+        }   
+    }
 }
