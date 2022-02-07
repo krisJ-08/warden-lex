@@ -1,7 +1,7 @@
 # Warden Programming Language
 
 ## How to Install Warden
-__1. Install Flex and GNUWin C Compiler__
+__1. Install Flex, GNUWin C Compiler and Bison__
 
 http://gnuwin32.sourceforge.net/packages/flex.htm
 
@@ -9,9 +9,7 @@ https://sourceforge.net/projects/mingw/
 
 http://gnuwin32.sourceforge.net/packages/bison.htm
 
-*Install also the Bison compiler for the semantics in the future*
-
-*Install the Flex and C Compiler in the root folder or the C: folder directly*
+*Install the Flex, C Compiler and Bison in the root folder or the C: folder directly*
 
     After installation, locate the installation folder called "GnuWin32" and open "bin" folder.
 
@@ -44,7 +42,7 @@ Then extract the folder and open it
 
 __3. Click the path in the File Explorer like in the Image:__
 
-![image](https://user-images.githubusercontent.com/77821151/151991528-04fd7671-b18a-4228-8141-780b428a7d46.png)
+![image](https://user-images.githubusercontent.com/77821151/152737546-655998a7-5f0a-4712-9a3b-d58159964b7c.png)
 
     Then type "cmd" to open the command prompt
     
@@ -57,12 +55,25 @@ a.exe               \\ This is the execuatable program
 sample              \\ The sample Warden source code
                     \\ You can change the source code with different keywords etc.
 ```
-__5. Try typing the keywords or operations__
+__5. Run the a.exe file__
 
     It will prompt you to type the filename of the source code which is "sample"
     
     Then it will display the lexemes and tokens of the source code
     
-_Outdated image file, may replace later. Research muna haha_
+    A text file named "Symbol Table.txt" will be generated which the symbol table is located.
+ 
+
     
-![image](https://user-images.githubusercontent.com/77821151/151992676-21d8070e-06e7-442f-92a0-61d515a45cfb.png)
+![image](https://user-images.githubusercontent.com/77821151/152737743-bc83c0b9-2826-4ba1-8e4d-e5cf3f4efa59.png)
+
+![image](https://user-images.githubusercontent.com/77821151/152737777-9564c663-7506-4ae7-8385-e8e10c17301d.png)
+
+
+__6. Edit the Warden source file__
+
+    There's a sample.wd file in the folder which you can edit the source file
+    
+    Use the checked.txt to check if the operators, and keywords are used in the source file
+    
+    Test your code in the C file first before putting it in the warden source file named "test.c".
