@@ -60,6 +60,7 @@ STRING      \"{print}*\"
 "fn"                    { ret_print("KEYWORD_FUNCTION"); }
 "do"                    { ret_print("KEYWORD_DO"); }
 "bool"|"boolean"        { ret_print("KEYWORD_BOOL"); }
+"void"                  { ret_print("KEYWORD_VOID"); }
 
  
  

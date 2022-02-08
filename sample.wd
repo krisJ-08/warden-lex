@@ -38,7 +38,7 @@ fn main(){
     return 0;
 }
 
-fn set(num: int){
+fn set(num: int)void{
     var i int = 0;
     dotimes (i num){
         if (i < 5 || i > 10){

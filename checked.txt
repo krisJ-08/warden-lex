@@ -9,11 +9,10 @@
 "cont"|"continue"  
 "break"            
 "return"           /
-"default"          
-"submit"           
+"default"          /
 "unless"           
 "dotimes"          /
-"switch"           
+"switch"           /
 "main"             /
 "false"            /
 "true"             /
@@ -22,6 +21,7 @@
 "fn"               /
 "do"               
 "bool"|"boolean"   /
+void                /
 
  
 "+" 
