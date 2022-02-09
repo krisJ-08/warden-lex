@@ -1,13 +1,17 @@
 fn main(){
     var a int = 69;
-    var b integer = 420
+    var b integer = 420;
+    var _test int;
     var dec single = 44.78;
     var ttl single = 0.0;
     var ltr char = 'g';
     var boss string = "bossman"
-    var int arr[] = {1, 2, 3, 4, 5, 6, 7, 8};
+    var arr[] int = {1, 2, 3, 4, 5, 6, 7, 8};
     var isCorrect bool =  false;
     var isWrong boolean =  true;
+    var 1num int;
+    var #ltr string;
+    var test bool = a == b;
     //this is a comment
 \t
 
@@ -34,6 +38,7 @@ fn main(){
     var NUM int = 15;
 
     set(NUM);
+    insurance();
 
     return 0;
 }
@@ -48,4 +53,17 @@ fn set(num: int)void{
             print("Second set: $i")
         }   
     }
+}
+
+fn insurance()void{
+    var condit bool = false;
+    println("Theyre taking the money!");
+
+    unless(condit){
+        println("Unless we take it first");
+    }
+    else {
+        println("Oh! Anyways!");
+    }
+
 }

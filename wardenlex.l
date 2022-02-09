@@ -20,12 +20,15 @@ digit       [0-9]
 alnum       {letter}|{digit}
 print       [ -~]
 
+
 ARRAY       ({letter}+{alnum}*"[".+"]")|({letter}+{alnum}*"["+"]")
 ID          {letter}+{alnum}*
+INVALID     [0-9|"_"|"#"|"!"|"@"|"$"]+[a-zA-Z]+
 ICONST      "0"|[0-9]{digit}*
 FCONST      "0"|{digit}*"."{digit}+
 CCONST      (\'{print}\')|(\'\\[nftrbv]\')
 STRING      \"{print}*\"
+
 
 %%
 
@@ -61,11 +64,12 @@ STRING      \"{print}*\"
 "do"                    { ret_print("KEYWORD_DO"); }
 "bool"|"boolean"        { ret_print("KEYWORD_BOOL"); }
 "void"                  { ret_print("KEYWORD_VOID"); }
+"print"                 { ret_print("OUTPUT_STATE"); }
+"println"               { ret_print("OUTPUTNL_STATE"); }
 
- 
- 
-"+"                     { ret_print("MINOP"); }
-"-"                     { ret_print("ADDOP"); }
+
+"+"                     { ret_print("ADDOP"); }
+"-"                     { ret_print("MINOP"); }
 "*"                     { ret_print("MULOP"); }
 "/"                     { ret_print("DIVOP"); }
 "++"                    { ret_print("IINCROP"); }
@@ -81,27 +85,30 @@ STRING      \"{print}*\"
 "<="                    { ret_print("LEQTHANOP"); }
 "**"                    { ret_print("EXPOP"); }
 "%"                     { ret_print("MODOP"); }
-"+="                     { ret_print("MINEQOP"); }
-"-="                     { ret_print("ADDEQOP"); }
-"*="                     { ret_print("MULEQOP"); }
-"/="                     { ret_print("DIVEQOP"); }
-"%="                     { ret_print("MODEQOP"); }
+"+="                    { ret_print("MINEQOP"); }
+"-="                    { ret_print("ADDEQOP"); }
+"*="                    { ret_print("MULEQOP"); }
+"/="                    { ret_print("DIVEQOP"); }
+"%="                    { ret_print("MODEQOP"); }
  
- 
+
 "("             { ret_print("LPAREN"); }
 ")"             { ret_print("RPAREN"); }
 "["             { ret_print("LBRACK"); }
 "]"             { ret_print("RBRACK"); }
-"{"             { ret_print("LBRACE"); }
-"}"             { ret_print("RBRACE"); }
-";"             { ret_print("SEMI"); }
+"{"             { ret_print("LBRACEDEM"); }
+"}"             { ret_print("RBRACEDEM"); }
+":"             { ret_print("COLON"); }
+";"             { ret_print("SEMIDEM"); }
 "."             { ret_print("DOT"); }
 ","             { ret_print("COMMA"); }
 "="             { ret_print("ASSIGN"); }
 "$"             { ret_print("REFERVAR"); }
 
+
 {ARRAY}         { ret_print("ARRAY"); }
 {ID}            { ret_print("ID"); }
+{INVALID}       { ret_print("INVALID IDENTIFIER"); }
 {ICONST}        { ret_print("ICONST"); }
 {FCONST}        { ret_print("FCONST"); }
 {CCONST}        { ret_print("CCONST"); }
@@ -111,12 +118,14 @@ STRING      \"{print}*\"
 [ \t\r\f]+      ;
 .               { yyerror("INVALID"); }
  
+
 %%
  
+
 void ret_print(char *token_type){
     words++;
-    printf("Lexemes: %s\tToken: %s\tLineNo: %d\n", yytext, token_type, lineno);
-    fprintf(yyout,"Lexeme: %s\tToken: %s\tLineNo: %d\n",yytext, token_type, lineno);
+    printf("LineNo: %d\t Lexeme: %s\tToken: %s\n", lineno, yytext, token_type);
+    fprintf(yyout,"LineNo: %d\t Lexeme: %s\tToken: %s\n", lineno, yytext, token_type);
 }
  
 void yyerror(char *message){
@@ -129,7 +138,6 @@ void ret_commt(char *message, int lineno){
     fprintf(yyout, message, lineno);
 }
 
- 
 int main(){
     extern FILE *yyin, *yyout; 
 
@@ -137,10 +145,14 @@ int main(){
     scanf("%123s",str);
     strcat(str,".wd");
     yyin = fopen(str, "r"); 
+    if(yyin == NULL){
+        printf("File not detected or different file\n");
+        return 1;
+    }
     yyout = fopen("Symbol Table.txt", "w+"); 
     yylex();
     printf("\n\nTotal Tokens = %d", words);
 	fprintf(yyout,"\n\n\nTotal Tokens = %d",words);
 
-    return 1;
+    return 0;
 }
