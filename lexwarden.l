@@ -44,31 +44,32 @@ STRING      \"{print}*\"
  
     // %%%%%%%%%%%%%%%%% SIMULA DITO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-"char"                  { ret_print("KEYWORD_CHAR"); }
-"int"|"integer"         { ret_print("KEYWORD_INT"); }
-"single"                { ret_print("KEYWORD_SINGLE"); }
-"if"                    { ret_print("KEYWORD_IF"); }
-"else"                  { ret_print("KEYWORD_ELSE"); }
-"while"                 { ret_print("KEYWORD_WHILE"); }
-"for"                   { ret_print("KEYWORD_FOR"); }
-"cont"|"continue"       { ret_print("KEYWORD_CONTINUE"); }
-"break"                 { ret_print("KEYWORD_BREAK"); }
-"return"                { ret_print("KEYWORD_RETURN"); }
-"default"               { ret_print("KEYWORD_DEFAULT"); }
-"unless"                { ret_print("KEYWORD_UNLESS"); }
-"dotimes"               { ret_print("KEYWORD_DOTIMES"); }
-"switch"                { ret_print("KEYWORD_SWITCH"); }
-"main"                  { ret_print("RESWORD_MAIN"); }
-"false"                 { ret_print("RESWORD_FALSE"); }
-"true"                  { ret_print("RESWORD_TRUE"); }
-"var"                   { ret_print("KEYWORD_VAR"); }
-"string"                { ret_print("KEYWORD_STRING"); }
-"fn"                    { ret_print("KEYWORD_FUNCTION"); }
-"do"                    { ret_print("KEYWORD_DO"); }
-"bool"|"boolean"        { ret_print("KEYWORD_BOOL"); }
-"void"                  { ret_print("KEYWORD_VOID"); }
-"print"                 { ret_print("OUTPUT_STATE"); }
-"println"               { ret_print("OUTPUTNL_STATE"); }
+"char"                  { return CHAR; }
+"int"|"integer"         { ret_print("INT"); }
+"single"                { ret_print("SINGLE"); }
+"if"                    { ret_print("IF"); }
+"else"                  { ret_print("ELSE"); }
+"while"                 { ret_print("WHILE"); }
+"for"                   { ret_print("FOR"); }
+"cont"|"continue"       { ret_print("CONTINUE"); }
+"break"                 { ret_print("BREAK"); }
+"return"                { ret_print("RETURN"); }
+"default"               { ret_print("DEFAULT"); }
+"unless"                { ret_print("UNLESS"); }
+"dotimes"               { ret_print("DOTIMES"); }
+"switch"                { ret_print("SWITCH"); }
+"main"                  { ret_print("MAIN"); }
+"false"                 { ret_print("FALSE"); }
+"true"                  { ret_print("TRUE"); }
+"var"                   { ret_print("VAR"); }
+"string"                { ret_print("STRING"); }
+"fn"                    { ret_print("FUNCTION"); }
+"do"                    { ret_print("DO"); }
+"bool"|"boolean"        { ret_print("BOOL"); }
+"void"                  { ret_print("VOID"); }
+"print"                 { ret_print("OUTPUT"); }
+"println"               { ret_print("OUTPUTNL"); }
+"scan"                  { ret_print("INPUT"); }
 
 
 "+"                     { ret_print("ADDOP"); }
