@@ -23,7 +23,7 @@ print       [ -~]
 
 ARRAY       ({letter}+{alnum}*"[".+"]")|({letter}+{alnum}*"["+"]")
 ID          {letter}+{alnum}*
-INVALID     [0-9|"_"|"#"|"@"|"$"|"^"|"&"|"\\"|"`"|"~"]+[a-zA-Z]+
+INVALID     [0-9|"_"|"#"|"@"|"^"|"\\"|"`"|"~"]+[a-zA-Z]+
 ICONST      "0"|[0-9]{digit}*
 FCONST      "0"|{digit}*"."{digit}+
 CCONST      (\'{print}\')|(\'\\[nftrbv]\')
@@ -32,10 +32,10 @@ STRING      \"{print}*\"
 
 %%
 
-"//".*                  { ret_commt("Line is commented at line %d\n", lineno); } 
+"//".*                  { ret_commt("\nLine is commented at line %d\n\n", lineno); } 
  
-"/*"                    { ret_commt("Start of comment from line %d\n", lineno); BEGIN(ML_COMMENT); }
-<ML_COMMENT>"*/"        { ret_commt("Ends to line %d\n", lineno); BEGIN(INITIAL); }
+"/*"                    { ret_commt("\nStart of comment from line %d\n", lineno); BEGIN(ML_COMMENT); }
+<ML_COMMENT>"*/"        { ret_commt("Ends to line %d\n\n", lineno); BEGIN(INITIAL); }
 <ML_COMMENT>[^*\n]+     
 <ML_COMMENT>"*"         
 <ML_COMMENT>"\n"        { lineno += 1; }
@@ -125,12 +125,12 @@ STRING      \"{print}*\"
 void ret_print(char *token_type){
     words++;
     printf("LineNo: %d\t Lexeme: %s\tToken: %s\n", lineno, yytext, token_type);
-    fprintf(yyout,"LineNo: %d\t Lexeme: %s\tToken: %s\n", lineno, yytext, token_type);
+    fprintf(yyout,"LineNo: %d\t\t\tLexeme: %s\t\t\t\tToken: %s\n", lineno, yytext, token_type);
 }
  
 void yyerror(char *message){
-    printf("Error: \"%s\" in line %d. Token = %s\n", message, lineno, yytext);
-    fprintf(yyout,"Error: \"%s\" in line %d. Lexeme = %s\n", message, lineno, yytext);
+    printf("\nError: \"%s\" in line %d. Token = %s\n\n", message, lineno, yytext);
+    fprintf(yyout,"\nError: \"%s\" in line %d. Lexeme = %s\n\n", message, lineno, yytext);
 }
 
 void ret_commt(char *message, int lineno){
