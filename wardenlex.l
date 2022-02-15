@@ -10,8 +10,8 @@
     void yyerror();
     void ret_commt();
     char str[20];
-   
 %}
+
 
 %x ML_COMMENT
 
@@ -32,8 +32,8 @@ STRING      \"{print}*\"
 
 %%
 
+
 "//".*                  { ret_commt("\nLine is commented at line %d\n\n", lineno); } 
- 
 "/*"                    { ret_commt("\nStart of comment from line %d\n", lineno); BEGIN(ML_COMMENT); }
 <ML_COMMENT>"*/"        { ret_commt("Ends to line %d\n\n", lineno); BEGIN(INITIAL); }
 <ML_COMMENT>[^*\n]+     
@@ -118,7 +118,6 @@ STRING      \"{print}*\"
 [ \t\r\f]+      ;
 .                { yyerror("INVALID"); }
  
-
 %%
  
 
@@ -144,7 +143,7 @@ int main(){
     printf("Enter Warden Source File:\n");
     scanf("%123s",str);
     strcat(str,".wd");
-    yyin = fopen(str, "r"); 
+    yyin = fopen(str, "r");
     if(yyin == NULL){
         printf("File not detected or different file\n");
         return 1;
