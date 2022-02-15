@@ -41,8 +41,7 @@ STRING      \"{print}*\"
 <ML_COMMENT>"*"         
 <ML_COMMENT>"\n"        { lineno += 1; }
  
- 
-    // %%%%%%%%%%%%%%%%% SIMULA DITO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 "char"                  { return CHAR; }
 "int"|"integer"         { ret_print("INT"); }
@@ -96,7 +95,7 @@ STRING      \"{print}*\"
 "%="                    { ret_print("MODEQOP"); }
  
 
- // %%%%%%%%%%%%%%%%% HANGGANG DITO %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 
 "("             { ret_print("LPAREN"); }
 ")"             { ret_print("RPAREN"); }
@@ -120,7 +119,7 @@ STRING      \"{print}*\"
 {FCONST}        { yylval.sing = atoi(yytext); return FCONST; }
 {CCONST}        { yylval.ltr = atoi(yytext); return CCONST; }
 {STRING}        { yylval.str = atoi(yytext); return CCONST; }
-// iwan niyo to
+
 "\n"            { lineno += 1; }
 [ \t\r\f]+      ;
 .               { yyerror("INVALID"); }

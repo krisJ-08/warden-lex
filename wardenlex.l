@@ -23,7 +23,7 @@ print       [ -~]
 
 ARRAY       ({letter}+{alnum}*"[".+"]")|({letter}+{alnum}*"["+"]")
 ID          {letter}+{alnum}*
-INVALID     [0-9|"_"|"#"|"!"|"@"|"$"]+[a-zA-Z]+
+INVALID     [0-9|"_"|"#"|"@"|"$"|"^"|"&"|"\\"|"`"|"~"]+[a-zA-Z]+
 ICONST      "0"|[0-9]{digit}*
 FCONST      "0"|{digit}*"."{digit}+
 CCONST      (\'{print}\')|(\'\\[nftrbv]\')
@@ -116,7 +116,7 @@ STRING      \"{print}*\"
 
 "\n"            { lineno += 1; }
 [ \t\r\f]+      ;
-.               { yyerror("INVALID"); }
+.                { yyerror("INVALID"); }
  
 
 %%

@@ -93,8 +93,7 @@ LineNo: 14	 Lexeme: ==	Token: EQUOP
 LineNo: 14	 Lexeme: b	Token: ID
 LineNo: 14	 Lexeme: ;	Token: SEMIDEM
 Line is commented at line 15
-Error: "INVALID" in line 16. Lexeme = \
-LineNo: 16	 Lexeme: t	Token: ID
+LineNo: 16	 Lexeme: \t	Token: INVALID IDENTIFIER
 Start of comment from line 18
 Ends to line 23
 Line is commented at line 24
