@@ -40,7 +40,7 @@
 %token  <ival>   ICONST
 %token  <fval>   FCONST
 %token  <cval>   CCONST
-%token  <sval>   STRING
+%token  <sval>   SCONST
 
 %token  <val> CHAR INT SINGLE BOOL TSTRING
 %token  <val> IF UNLESS RETURN SWITCH BREAK CONTINUE DEFAULT
@@ -66,15 +66,68 @@
 
 %%
 
-program: 
+program     : main_func program
+            | translation_unit
+            ;
 
-data-types:     INT
+translation_unit    : external_decl 									
+				    | translation_unit external_decl					
+				    ;
+external_decl	    : func_def
+				    | declaration
+				    ;
+
+func_def    : FUNCTION ID LPAREN RPAREN LBRACEDEM data_types expressions RBRACEDEM
+            | FUNCTION ID LPAREN arguments RPAREN LBRACEDEM data_types expressions RBRACEDEM
+            | FUNCTION ID LPAREN arguments RPAREN LBRACEDEM data_types expressions RETURN RBRACEDEM
+            ;
+
+names   : variable init
+        | names COMMA variable init
+        ;
+
+variable    : ID
+            | ID array
+            ;
+
+init    : data_types ASSIGN init_value |
+        ;
+
+init_value  : const
+            | array_init
+            ;
+
+array_init      : LBRACK values RBRACK
+                ;
+
+declaration : VAR names data_types SEMIDEM
+            ;
+
+array   : array LBRACK expression RBRACK
+        | LBRACEDEM expression RBRACK
+        ;
+
+values      : values COMMA const
+            | const
+            ;
+
+main_func   : FUNCTION MAIN LPAREN RPAREN LBRACEDEM data_types expressions SEMIDEM RBRACEDEM | 
+
+const       : ICONST
+            | CCONST
+            | FCONST
+            | SCONST
+            ;
+
+data_types      : INT
                 | SINGLE
                 | CHAR
                 | TSTRING
                 | BOOL
+                | VOID
                 ;
-ass-operator:   EQUOP
+
+ass_operator    : EQUOP
                 | MULEQOP
                 | DIVEQOP
                 | MODEQOP
@@ -82,16 +135,16 @@ ass-operator:   EQUOP
                 | MINEQOP
                 ;
 
-inc-operator:   IINCROP
+inc_operator    : IINCROP
                 | DINCROP
                 | NOTOP
                 ;
 
-logic-operator: ANDOP
+logic_operator  : ANDOP
                 | OROP
                 ;
 
-rela-operator:  EQUOP
+rela_operator   : EQUOP
                 | NOTEQUOP
                 | GTHANOP
                 | LTHANOP
