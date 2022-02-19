@@ -1,8 +1,8 @@
 fn main(){
-    var a int = 69;
+    var a int = -69;
     var b integer = 420;
     var _test int;
-    var dec single = 44.78;
+    var dec single = -44.78;
     var ttl single = 0.0;
     var ltr char = 'g';
     var boss string = "bossman"

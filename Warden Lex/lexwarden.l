@@ -4,7 +4,7 @@
     #include <stdio.h>
     #include <stdlib.h>
     #include <string.h>
-    #include "parser.tab.h"
+    #include "./Warden Syntax/parser.tab.h"
     int lineno = 1;
     int words = 0;
     void ret_print(char *token_type);
@@ -24,9 +24,9 @@ print       [ -~]
 
 ARRAY       ({letter}+{alnum}*"[".+"]")|({letter}+{alnum}*"["+"]")
 ID          {letter}+{alnum}*
-INVALID     [0-9|"_"|"#"|"!"|"@"|"$"]+[a-zA-Z]+
-ICONST      "0"|[0-9]{digit}*
-FCONST      "0"|{digit}*"."{digit}+
+INVALID     [0-9|"_"|"#"|"@"|"^"|"\\"|"`"|"~"]+[a-zA-Z]+
+ICONST      "0"|[-]?[0-9]{digit}*
+FCONST      "0"|[-]?{digit}*"."{digit}+
 CCONST      (\'{print}\')|(\'\\[nftrbv]\')
 STRING      \"{print}*\"
 
@@ -61,7 +61,7 @@ STRING      \"{print}*\"
 "false"                 { ret_print("FALSE"); }
 "true"                  { ret_print("TRUE"); }
 "var"                   { ret_print("VAR"); }
-"string"                { ret_print("STRING"); }
+"string"                { ret_print("TSTRING"); }
 "fn"                    { ret_print("FUNCTION"); }
 "do"                    { ret_print("DO"); }
 "bool"|"boolean"        { ret_print("BOOL"); }

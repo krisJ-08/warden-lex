@@ -24,8 +24,8 @@ print       [ -~]
 ARRAY       ({letter}+{alnum}*"[".+"]")|({letter}+{alnum}*"["+"]")
 ID          {letter}+{alnum}*
 INVALID     [0-9|"_"|"#"|"@"|"^"|"\\"|"`"|"~"]+[a-zA-Z]+
-ICONST      "0"|[0-9]{digit}*
-FCONST      "0"|{digit}*"."{digit}+
+ICONST      "0"|[-]?[0-9]{digit}*
+FCONST      "0"|[-]?{digit}*"."{digit}+
 CCONST      (\'{print}\')|(\'\\[nftrbv]\')
 STRING      \"{print}*\"
 
@@ -56,8 +56,8 @@ STRING      \"{print}*\"
 "dotimes"               { ret_print("KEYWORD_DOTIMES"); }
 "switch"                { ret_print("KEYWORD_SWITCH"); }
 "main"                  { ret_print("RESWORD_MAIN"); }
-"false"                 { ret_print("RESWORD_FALSE"); }
-"true"                  { ret_print("RESWORD_TRUE"); }
+"false"                 { ret_print("BOOLEAN_FALSE"); }
+"true"                  { ret_print("BOOLEAN_TRUE"); }
 "var"                   { ret_print("KEYWORD_VAR"); }
 "string"                { ret_print("KEYWORD_STRING"); }
 "fn"                    { ret_print("KEYWORD_FUNCTION"); }
@@ -66,6 +66,7 @@ STRING      \"{print}*\"
 "void"                  { ret_print("KEYWORD_VOID"); }
 "print"                 { ret_print("OUTPUT_STATE"); }
 "println"               { ret_print("OUTPUTNL_STATE"); }
+"scan"                  { ret_print("INPUT"); }
 
 
 "+"                     { ret_print("ADDOP"); }
@@ -73,7 +74,7 @@ STRING      \"{print}*\"
 "*"                     { ret_print("MULOP"); }
 "/"                     { ret_print("DIVOP"); }
 "++"                    { ret_print("IINCROP"); }
-"--"                    { ret_print("DINCROP"); }
+"--"                    { ret_print("DECROP"); }
 "||"                    { ret_print("OROP"); }
 "&&"                    { ret_print("ANDOP"); }
 "!"                     { ret_print("NOTOP"); }
@@ -85,8 +86,8 @@ STRING      \"{print}*\"
 "<="                    { ret_print("LEQTHANOP"); }
 "**"                    { ret_print("EXPOP"); }
 "%"                     { ret_print("MODOP"); }
-"+="                    { ret_print("MINEQOP"); }
-"-="                    { ret_print("ADDEQOP"); }
+"+="                    { ret_print("ADDEQOP"); }
+"-="                    { ret_print("MINEQOP"); }
 "*="                    { ret_print("MULEQOP"); }
 "/="                    { ret_print("DIVEQOP"); }
 "%="                    { ret_print("MODEQOP"); }
@@ -107,16 +108,17 @@ STRING      \"{print}*\"
 
 
 {ARRAY}         { ret_print("ARRAY"); }
-{ID}            { ret_print("ID"); }
+{ID}            { ret_print("VALID IDENTIFIER"); }
 {INVALID}       { ret_print("INVALID IDENTIFIER"); }
 {ICONST}        { ret_print("ICONST"); }
 {FCONST}        { ret_print("FCONST"); }
 {CCONST}        { ret_print("CCONST"); }
 {STRING}        { ret_print("STRING"); }
 
+
 "\n"            { lineno += 1; }
 [ \t\r\f]+      ;
-.                { yyerror("INVALID"); }
+.               { yyerror("INVALID"); }
  
 %%
  
@@ -124,12 +126,12 @@ STRING      \"{print}*\"
 void ret_print(char *token_type){
     words++;
     printf("LineNo: %d\t Lexeme: %s\tToken: %s\n", lineno, yytext, token_type);
-    fprintf(yyout,"LineNo: %d\t\t\tLexeme: %s\t\t\t\tToken: %s\n", lineno, yytext, token_type);
+    fprintf(yyout,"LineNo: %d\t Lexeme: %s\tToken: %s\n", lineno, yytext, token_type);
 }
  
 void yyerror(char *message){
-    printf("\nError: \"%s\" in line %d. Token = %s\n\n", message, lineno, yytext);
-    fprintf(yyout,"\nError: \"%s\" in line %d. Lexeme = %s\n\n", message, lineno, yytext);
+    printf("Error: \"%s\" in line %d. Token = %s\n", message, lineno, yytext);
+    fprintf(yyout,"Error: \"%s\" in line %d. Lexeme = %s\n", message, lineno, yytext);
 }
 
 void ret_commt(char *message, int lineno){
@@ -143,7 +145,7 @@ int main(){
     printf("Enter Warden Source File:\n");
     scanf("%123s",str);
     strcat(str,".wd");
-    yyin = fopen(str, "r");
+    yyin = fopen(str, "r"); 
     if(yyin == NULL){
         printf("File not detected or different file\n");
         return 1;
