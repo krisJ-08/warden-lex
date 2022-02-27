@@ -1,4 +1,4 @@
-fn main(){
+fn main()int{
     var a int = -69;
     var b integer = 420;
     var _test int;
@@ -43,7 +43,7 @@ fn main(){
     return 0;
 }
 
-fn set(num: int)void{
+fn set(num: int, total: double)void{
     var i int = 0;
     dotimes (i num){
         if (i < 5 || i > 10){

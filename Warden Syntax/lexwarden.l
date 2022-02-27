@@ -44,31 +44,31 @@ STRING      \"{print}*\"
 
 
 "char"                  { return CHAR; }
-"int"|"integer"         { ret_print("INT"); }
-"single"                { ret_print("SINGLE"); }
-"if"                    { ret_print("IF"); }
-"else"                  { ret_print("ELSE"); }
-"while"                 { ret_print("WHILE"); }
-"for"                   { ret_print("FOR"); }
-"cont"|"continue"       { ret_print("CONTINUE"); }
-"break"                 { ret_print("BREAK"); }
-"return"                { ret_print("RETURN"); }
-"default"               { ret_print("DEFAULT"); }
-"unless"                { ret_print("UNLESS"); }
-"dotimes"               { ret_print("DOTIMES"); }
-"switch"                { ret_print("SWITCH"); }
-"main"                  { ret_print("MAIN"); }
-"false"                 { ret_print("FALSE"); }
-"true"                  { ret_print("TRUE"); }
-"var"                   { ret_print("VAR"); }
-"string"                { ret_print("TSTRING"); }
-"fn"                    { ret_print("FUNCTION"); }
-"do"                    { ret_print("DO"); }
-"bool"|"boolean"        { ret_print("BOOL"); }
-"void"                  { ret_print("VOID"); }
-"print"                 { ret_print("OUTPUT"); }
-"println"               { ret_print("OUTPUTNL"); }
-"scan"                  { ret_print("INPUT"); }
+"int"|"integer"         { return INT; }
+"single"                { return SINGLE; }
+"if"                    { return IF; }
+"else"                  { return ELSE; }
+"while"                 { return WHILE; }
+"for"                   { return FOR; }
+"cont"|"continue"       { return CONTINUE; }
+"break"                 { return BREAK; }
+"return"                { return RETURN; }
+"default"               { return DEFAULT; }
+"unless"                { return UNLESS; }
+"dotimes"               { return DOTIMES; }
+"switch"                { return SWITCH; }
+"main"                  { return MAIN; }
+"false"                 { return FALSE; }
+"true"                  { return TRUE; }
+"var"                   { return VAR; }
+"string"                { return TSTRING; }
+"fn"                    { return FUNCTION; }
+"do"                    { return DO; }
+"bool"|"boolean"        { return BOOL; }
+"void"                  { return VOID; }
+"print"                 { return OUTPUT; }
+"println"               { return OUTPUTNL; }
+"scan"                  { return INPUT; }
 
 
 "+"                     { ret_print("ADDOP"); }

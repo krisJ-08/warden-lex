@@ -36,7 +36,7 @@
 }
 
 %token EOL
-%token  <idval>  ID
+%token  <symtab_item>  ID
 %token  <ival>   ICONST
 %token  <fval>   FCONST
 %token  <cval>   CCONST
@@ -55,7 +55,7 @@
 %left GTHANOP LTHANOP GEQTHANOP LEQTHANOP EQUOP ANDOP OROP NOTEQUOP
 %right ASSIGN ADDEQOP MINEQOP MULEQOP DIVEQOP MODEQOP COLON
 %right IINCROP DINCROP REFERVAR
-%left EXPOP PLUS MINOP COMMA
+%left EXPOP ADDOP MINOP COMMA
 %left MULOP DIVOP MODOP
 %nonassoc ELSE
 
@@ -76,21 +76,42 @@ translation_unit    : external_decl
 external_decl	    : func_def
 				    | declaration
 				    ;
-
-func_def    : FUNCTION ID LPAREN RPAREN LBRACEDEM data_types expressions RBRACEDEM
-            | FUNCTION ID LPAREN arguments RPAREN LBRACEDEM data_types expressions RBRACEDEM
-            | FUNCTION ID LPAREN arguments RPAREN LBRACEDEM data_types expressions RETURN RBRACEDEM
+            
+declaration : VAR names data_types SEMIDEM
+            | VAR ID data_types expression_assign SEMIDEM
             ;
 
-names   : variable init
-        | names COMMA variable init
+const_variable  : const
+                | variable
+
+names   : ID
+        | names COMMA
         ;
 
-variable    : ID
-            | ID array
+func_def    : FUNCTION ID LPAREN arguments RPAREN LBRACEDEM func_data_type expression RBRACEDEM
+            | FUNCTION ID LPAREN arguments RPAREN LBRACEDEM func_data_type expression RETURN RBRACEDEM
             ;
 
-init    : data_types ASSIGN init_value |
+func_data_type  : data_types
+                | VOID
+                ;
+
+func_return : RETURN expression SEMIDEM
+            | 
+            ;
+
+arguments   : ID COLON data_types 
+            | arguments COMMA
+            | 
+            ;
+
+variable    : ID
+            | ar
+            | const
+            ;
+
+init    : ASSIGN init_value 
+        |
         ;
 
 init_value  : const
@@ -100,18 +121,141 @@ init_value  : const
 array_init      : LBRACK values RBRACK
                 ;
 
-declaration : VAR names data_types SEMIDEM
+expr    : variable
+        | expr COMMA variable
+        | expr arith_op variable
+        |
+        ;
+
+ar: ID LBRACK expr RBRACK ar
+| ar COMMA
+;
+
+myarray : VAR ar data_types ASSIGN array_init
+        ;
+
+statements  : statements statement 
+            | statement
             ;
 
-array   : array LBRACK expression RBRACK
-        | LBRACEDEM expression RBRACK
+statement   : if_statement
+            | for_statement
+            | while_statement
+            | switch_statement
+            | unless_statement
+            | dotimes_statement
+            | assignment_for
+            | CONTINUE SEMIDEM
+            | BREAK SEMIDEM
+            | function_call SEMIDEM
+            ;
+
+if_statement    : IF LPAREN expression RPAREN tail else_if_part else_part
+                | IF LPAREN expression RPAREN tail else_unl_part else_part
+                ;
+
+unless_statement    : UNLESS LPAREN expression RPAREN tail else_unl_part else_part
+                    | UNLESS LPAREN expression RPAREN tail else_if_part else_part
+                    ;
+
+else_unl_part   : else_unl_part ELSE UNLESS LPAREN expression RPAREN tail
+                | ELSE UNLESS LPAREN expression RPAREN tail
+                | 
+                ;            
+
+else_if_part    : else_if_part ELSE IF LPAREN expression RPAREN tail
+                | ELSE IF LPAREN expression RPAREN tail
+                | 
+                ;
+
+else_part   : ELSE tail 
+            | /* empty */  
+            ;
+
+for_statement   : FOR LPAREN assignment_for expression SEMIDEM expression RPAREN tail
+                ;
+
+assignment_for  : reference variable ASSIGN expression SEMIDEM 
+                ;
+
+reference   : VAR
+            | 
+            ;
+
+dotimes_statement   : DOTIMES LPAREN const_variable const_variable LBRACEDEM expression RBRACEDEM
+                    ;
+
+while_statement : WHILE LPAREN expression RPAREN tail
+                ;
+
+boolean_expression  : variable rela_operator variable boolean_expression
+                    | logic_operator
+                    ;
+
+switch_statement    : SWITCH LPAREN variable RPAREN LBRACEDEM switch_values RBRACEDEM
+                    ;
+
+switch_values   : 'case' const COLON statements jump_statement SEMIDEM
+                | 'case' const COLON expression jump_statement SEMIDEM
+                | switch_values DEFAULT expression
+                ;
+
+jump_statement  : CONTINUE SEMIDEM
+                | BREAK SEMIDEM
+                |
+                ;
+
+tail    : LBRACEDEM statements RBRACEDEM
         ;
+
+expression_assign   : variable
+                    | expression arith_op
+                    | expression EXPOP
+                    | 
+
+unary_exp   : unary_operator expression
+            | expression unary_operator
+            ;
+
+expression  : expression arith_op expression
+            | expression EXPOP
+            | unary_operator expression
+            | expression unary_operator
+            | expression logic_operator expression
+            | NOTOP expression
+            | expression ass_operator expression
+            | expression rela_operator expression
+            | LPAREN expression RPAREN
+            | variable
+            | sign const
+            | function_call
+            ;
+
+assign_for  : 
+            ;
+
+
+function_call   : ID LPAREN call_params RPAREN;
+
+call_params : call_param
+            | TSTRING
+            |
+            ;
+
+call_param  : call_param COMMA variable
+            | variable
+            ;
+
+sign    : MINOP
+        |
+        ;
+
 
 values      : values COMMA const
             | const
             ;
 
-main_func   : FUNCTION MAIN LPAREN RPAREN LBRACEDEM data_types expressions SEMIDEM RBRACEDEM | 
+main_func   : FUNCTION MAIN LPAREN RPAREN LBRACEDEM data_types expression SEMIDEM RBRACEDEM | 
 
 const       : ICONST
             | CCONST
@@ -123,11 +267,16 @@ data_types      : INT
                 | SINGLE
                 | CHAR
                 | TSTRING
-                | BOOL
-                | VOID
                 ;
 
-ass_operator    : EQUOP
+arith_op    : ADDOP
+            | MINOP
+            | MULOP
+            | DIVOP
+            | MODOP
+            ;
+
+ass_operator    : ASSIGN
                 | MULEQOP
                 | DIVEQOP
                 | MODEQOP
@@ -135,9 +284,8 @@ ass_operator    : EQUOP
                 | MINEQOP
                 ;
 
-inc_operator    : IINCROP
+unary_operator  : IINCROP
                 | DINCROP
-                | NOTOP
                 ;
 
 logic_operator  : ANDOP
@@ -154,12 +302,16 @@ rela_operator   : EQUOP
 
 %%
 int main*() {
-    yyprse();
-
+    yyparse();
+    if(success)
+    	printf("Parsing Successful\n");
     return 0;
 }
 
-yyerror(char* s){
-    printf("ERROR: %s\n", s);
-    return 0;
+int yyerror(const char *msg)
+{
+	extern int yylineno;
+	printf("Parsing Failed\nLine Number: %d %s\n",yylineno,msg);
+	success = 0;
+	return 0;
 }
