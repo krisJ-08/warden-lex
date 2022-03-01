@@ -35,14 +35,13 @@
 %token  OUTPUT OUTPUTNL INPUT 
 
 
-%nonassoc SEMIDEM 
 %nonassoc LBRACK RBRACK LBRACEDEM RBRACEDEM LPAREN RPAREN NOTOP
 %token GTHANOP LTHANOP GEQTHANOP LEQTHANOP EQUOP ANDOP OROP NOTEQUOP
 %right ASSIGN ADDEQOP MINEQOP MULEQOP DIVEQOP MODEQOP COLON
-%right IINCROP DINCROP REFERVAR
-%left EXPOP ADDOP MINOP COMMA
+%token IINCROP DINCROP REFERVAR EXPOP
+%left ADDOP MINOP COMMA
 %left MULOP DIVOP MODOP
-%nonassoc ELSE
+%nonassoc ELSE SEMIDEM
 
 
 %start program
@@ -154,7 +153,7 @@ do_times_statement      : DOTIMES LPAREN expression RPAREN tail
 switch_statement        : SWITCH LPAREN expression RPAREN LBRACEDEM switch_expression switch_default RBRACEDEM
                         ;
 
-for_statement   : FOR LPAREN expression SEMIDEM expression SEMIDEM expression RPAREN tail 
+for_statement   : FOR LPAREN expression expression SEMIDEM expression RPAREN tail
                 ;
 
 while_statement : WHILE LPAREN expression RPAREN tail 
@@ -198,21 +197,21 @@ expression      : expression ADDOP expression
                 | expression DIVOP expression
                 | expression MODOP expression
                 | expression assop expression
-                | variable EXPOP
-                | variable incrop 
-                | incrop variable 
+                | expression EXPOP
+                | ID incrop 
+                | incrop ID 
                 | ID ID
                 | expression logop expression 
                 | NOTOP expression 
                 | expression equop expression 
                 | expression relop expression 
                 | LPAREN expression RPAREN 
-                | var_ref 
                 | sign constant 
                 | function_call
                 | switch_expression
                 | declaration
                 | variable
+                | ID
                 ;
 
  array_exp      : expression ADDOP expression 
@@ -243,14 +242,16 @@ constant        : ICONST
                 | CCONST
                 | SCONST
                 | FCONST
+                | bool_const
                 ;
 
-assignment      : var_ref ASSIGN expression 
+bool_const      : TRUE
+                | FALSE
                 ;
 
-var_ref : variable 
-        | REFERVAR variable 
-        ;
+assignment      : ID ASSIGN expression 
+                ;
+
 
 function_call   : ID LPAREN call_params RPAREN SEMIDEM
                 ;
@@ -262,7 +263,6 @@ call_params     : call_param
 
 call_param      : call_param COMMA expression 
                 | expression
-                | ID 
                 |
                 ;
 
@@ -322,28 +322,23 @@ void yyerror ()
 
 int main (int argc, char *argv[]){
 
-	// initialize symbol table
 	init_hash_table();
         
-        /* printf("Enter Warden Source File:\n");
+        printf("Enter Warden Source File:\n");
         scanf("%123s",str);
-        strcat(str,".wd"); */
+        strcat(str,".wd");
         yyin = fopen("sample.wd", "r"); 
         if(yyin == NULL){
                 printf("File not detected or different file\n");
                 return 1;
-    }
+        }
         
         /* yydebug = 1; */
-	/* int flag;
-	/* yyin = fopen(argv[1], "r"); */
-	/* flag =  */
         yyparse();
 	fclose(yyin);
 	
-	printf("Parsing finished!");
+	printf("\n\nParsing finished! No errors found!");
 	
-	// symbol table dump
 	yyout = fopen("symtab_dump.out", "w");
 	symtab_dump(yyout);
 	fclose(yyout);

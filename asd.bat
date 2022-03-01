@@ -1,4 +1,4 @@
 flex lex.l
 bison -d parser.y
-gcc lex.yy.c parser.tab.c
-a.exe
+gcc -o warden parser.tab.c lex.yy.c
+warden.exe
