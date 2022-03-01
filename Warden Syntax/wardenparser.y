@@ -45,7 +45,7 @@
 %token  <val> CHAR INT SINGLE BOOL TSTRING
 %token  <val> IF UNLESS RETURN SWITCH BREAK CONTINUE DEFAULT
 %token  <val> DO WHILE FOR DOTIMES
-%token  <val> VAR FUNCTION VOID MAIN DOT
+%token  <val> VAR FUNCTION VOID MAIN
 %token  <val> TRUE FALSE
 %token  <val> OUTPUT OUTPUTNL INPUT 
 
@@ -79,6 +79,8 @@ external_decl	    : func_def
             
 declaration : VAR names data_types SEMIDEM
             | VAR ID data_types expression_assign SEMIDEM
+            | VAR names BOOL SEMIDEM
+            | VAR ID BOOL boolean_expression SEMIDEM
             ;
 
 const_variable  : const
@@ -188,6 +190,8 @@ dotimes_statement   : DOTIMES LPAREN const_variable const_variable LBRACEDEM exp
 while_statement : WHILE LPAREN expression RPAREN tail
                 ;
 
+do_while_statement  : DO LBRACEDEM expression RBRACEDEM WHILE LPAREN expression RPAREN SEMIDEM;
+
 boolean_expression  : variable rela_operator variable boolean_expression
                     | logic_operator
                     ;
@@ -208,10 +212,11 @@ jump_statement  : CONTINUE SEMIDEM
 tail    : LBRACEDEM statements RBRACEDEM
         ;
 
-expression_assign   : variable
+expression_assign   : ASSIGN variable
                     | expression arith_op
                     | expression EXPOP
                     | 
+                    ;
 
 unary_exp   : unary_operator expression
             | expression unary_operator
@@ -229,9 +234,6 @@ expression  : expression arith_op expression
             | variable
             | sign const
             | function_call
-            ;
-
-assign_for  : 
             ;
 
 
@@ -268,6 +270,7 @@ data_types      : INT
                 | CHAR
                 | TSTRING
                 ;
+
 
 arith_op    : ADDOP
             | MINOP

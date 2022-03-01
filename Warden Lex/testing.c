@@ -4,7 +4,6 @@ int main() {
 	int b = 4;
 	
 	int a = b = 2;
-	boolean gh = false;
 	
 	char x[34], y[2] = "sdawd";
 	
@@ -13,10 +12,12 @@ int main() {
 	for(int a = b = 2; a <5; a++)
 		printf("gumagana");
 		
-	while(!gh){
-		printf("\n gumagana while");
-		
+	int c = 0;
+	do{
+		printf("gumagana");
+		c++;
 	}
+	while(c < 5);
 	
 	return 0;
 }
