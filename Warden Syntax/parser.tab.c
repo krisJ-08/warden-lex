@@ -2082,11 +2082,12 @@ int main (int argc, char *argv[]){
 	fclose(yyin);
 	
 
-	printf("\n\nParsing finished! No errors found!");
+	printf("\n\nParsing finished! No errors found!\n\n");
 	
 	yyout = fopen("symtab_dump.out", "w");
 	symtab_dump(yyout);
 	fclose(yyout);
 	
-	return 0;
+        system("pause");
+        return 0;
 }

@@ -67,6 +67,7 @@ STRING      \"{print}*\"
 "print"                 { ret_print("OUTPUT_STATE"); }
 "println"               { ret_print("OUTPUTNL_STATE"); }
 "scan"                  { ret_print("INPUT"); }
+"case"					{ ret_print("CASE"); }
 
 
 "+"                     { ret_print("ADDOP"); }

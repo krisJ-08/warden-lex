@@ -1,19 +1,15 @@
 fn main()int{
     var a int = -69;
     var b integer = 420;
-    var _test int;
     var dec single = -44.78;
     var ttl single = 0.0;
     var ltr char = 'g';
-    var boss string = "bossman"
+    var boss string = "bossman";
     var arr[] int = {1, 2, 3, 4, 5, 6, 7, 8};
     var isCorrect bool =  false;
     var isWrong boolean =  true;
-    var 1num int;
-    var #ltr string;
-    var test bool = a == b;
     //this is a comment
-\t
+
 
     /*
     this
@@ -25,14 +21,13 @@ fn main()int{
 
     for (var i int = 0; 8 > i; i++)
     {
-        
         ttl = a + i;
         ttl = b - i;
         ttl = ttl * b;
         ttl = a / ttl;
         ttl = a % i;
         b--;
-        ttl = 2 * i**2;
+        ttl = 2 * i**;
     }
 
     var NUM int = 15;
@@ -43,14 +38,14 @@ fn main()int{
     return 0;
 }
 
-fn set(num: int, total: double)void{
+fn set(num: int, total: single)void{
     var i int = 0;
     dotimes (i num){
         if (i < 5 || i > 10){
             print("First set: $i");
         }
         else {
-            print("Second set: $i")
+            print("Second set: $i");
         }   
     }
 }
@@ -65,5 +60,4 @@ fn insurance()void{
     else {
         println("Oh! Anyways!");
     }
-
 }
