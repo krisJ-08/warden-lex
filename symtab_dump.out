@@ -1,23 +1,20 @@
 ------------ ------ ------------
 Name         Type   Line Numbers
 ------------ ------ -------------
-condit       undef    54   57 
-bossÀ      undef     7 
+conditi      undef    57 
+conditi      undef    54 
+bossĞi      undef     7 
 NUM          undef    33   35 
 dec          undef     4 
-a            undef    24   27   28 
-a|          undef     2 
-b            undef    29 
-bµ          undef    26 
-bµ          undef    25 
-isCorrect    undef     9 
-b|          undef     3 
+a            undef     2   24   27   28 
+isCorrectS\system32\cmd.exe undef     9 
+b            undef     3   25   26   29 
 i            undef    22   22   22   24   25   28   30   42   43   44   44 
 isWrong      undef    10 
 arr          undef     8 
 set          undef    35   41 
 insurance    undef    36   53 
 num          undef    41   43 
-total        undef    41 
+total}i      undef    41 
 ltr          undef     6 
 ttl          undef     5   24   25   26   26   27   27   28   30 

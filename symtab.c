@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "symtab.h"
+#include <process.h>
 
 /* current scope */
 int cur_scope = 0;
@@ -50,6 +51,8 @@ void insert(char *name, int len, int type, int lineno){
 		t->next->next = NULL;
 		printf("Found %s again at line %d!\n", name, lineno);
 	}
+
+	system("cls");
 }
 
 list_t *lookup(char *name){ /* return symbol if found or NULL if not found */

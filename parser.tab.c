@@ -74,13 +74,13 @@
 	#include <stdio.h>
 	#include <stdlib.h>
 	#include <string.h>
+        #include <process.h>
 	extern FILE *yyin;
 	extern FILE *yyout;
 	extern int lineno;
 	extern int yylex();
 	void yyerror();
         char str[20];
-        #define YYDEBUG 1
 
 
 /* Line 189 of yacc.c  */
@@ -2081,6 +2081,7 @@ int main (int argc, char *argv[]){
         yyparse();
 	fclose(yyin);
 	
+
 	printf("\n\nParsing finished! No errors found!");
 	
 	yyout = fopen("symtab_dump.out", "w");
