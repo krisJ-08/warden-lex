@@ -9,7 +9,8 @@
     void ret_print(char *token_type);
     void yyerror();
     void ret_commt();
-    char str[20];
+    char str[5];
+    char src[20];
 %}
 
 
@@ -143,18 +144,32 @@ void ret_commt(char *message, int lineno){
 int main(){
     extern FILE *yyin, *yyout; 
 
-    printf("Enter Warden Source File:\n");
-    scanf("%123s",str);
-    strcat(str,".wd");
-    yyin = fopen(str, "r"); 
-    if(yyin == NULL){
-        printf("File not detected or different file\n");
-        return 1;
-    }
+    printf("Enter Warden Source File with 'ward [sourcefile.wd]':\n");
+        scanf("%s", str);
+        scanf("%s", src);
+        
+	char search[] = "ward";
+	char *ptr = strstr(str, search);
+
+	if (ptr != NULL)
+	{
+		yyin = fopen(src, "r"); 
+                if(yyin == NULL){
+                        printf("File not detected or different file\n");
+                        return 1;
+                }
+	}
+	else
+	{
+		printf("\nPlease include \"ward\" then source file!\n\n");
+                return 1;
+	}
+
     yyout = fopen("Symbol Table.txt", "w+"); 
     yylex();
-    printf("\n\nTotal Tokens = %d", words);
+    printf("\n\nTotal Tokens = %d\n\n", words);
 	fprintf(yyout,"\n\n\nTotal Tokens = %d",words);
 
+    system("pause");
     return 0;
 }

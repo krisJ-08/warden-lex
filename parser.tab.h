@@ -115,9 +115,9 @@ typedef union YYSTYPE
 {
 
 /* Line 1676 of yacc.c  */
-#line 16 "parser.y"
+#line 17 "parser.y"
 
-    char char_val;
+        char char_val;
 	int int_val;
 	double double_val;
 	char* str_val;

@@ -51,7 +51,6 @@ void insert(char *name, int len, int type, int lineno){
 		t->next->next = NULL;
 		printf("Found %s again at line %d!\n", name, lineno);
 	}
-
 	system("cls");
 }
 

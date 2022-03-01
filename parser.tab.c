@@ -80,11 +80,12 @@
 	extern int lineno;
 	extern int yylex();
 	void yyerror();
-        char str[20];
+        char str[5];
+        char src[20];
 
 
 /* Line 189 of yacc.c  */
-#line 88 "parser.tab.c"
+#line 89 "parser.tab.c"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -187,9 +188,9 @@ typedef union YYSTYPE
 {
 
 /* Line 214 of yacc.c  */
-#line 16 "parser.y"
+#line 17 "parser.y"
 
-    char char_val;
+        char char_val;
 	int int_val;
 	double double_val;
 	char* str_val;
@@ -198,7 +199,7 @@ typedef union YYSTYPE
 
 
 /* Line 214 of yacc.c  */
-#line 202 "parser.tab.c"
+#line 203 "parser.tab.c"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -210,7 +211,7 @@ typedef union YYSTYPE
 
 
 /* Line 264 of yacc.c  */
-#line 214 "parser.tab.c"
+#line 215 "parser.tab.c"
 
 #ifdef short
 # undef short
@@ -559,21 +560,21 @@ static const yytype_int8 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,    53,    53,    56,    57,    60,    63,    66,    67,    68,
-      69,    70,    73,    74,    75,    79,    80,    83,    84,    86,
-      87,    90,    93,    96,    97,   100,   101,   104,   105,   106,
-     107,   108,   109,   110,   111,   112,   113,   114,   115,   116,
-     117,   118,   119,   122,   125,   126,   129,   132,   133,   136,
-     137,   138,   139,   142,   143,   146,   147,   150,   153,   156,
-     159,   162,   166,   169,   170,   173,   174,   175,   176,   179,
-     180,   183,   184,   185,   186,   187,   190,   191,   194,   195,
-     196,   197,   198,   199,   200,   201,   202,   203,   204,   205,
-     206,   207,   208,   209,   210,   211,   212,   213,   214,   217,
-     218,   219,   220,   221,   222,   223,   226,   227,   230,   233,
-     234,   237,   238,   241,   242,   243,   244,   245,   248,   249,
-     252,   256,   259,   260,   261,   264,   265,   266,   269,   270,
-     273,   274,   277,   280,   283,   284,   287,   288,   291,   292,
-     295,   298,   301,   302,   305,   306,   309,   310
+       0,    54,    54,    57,    58,    61,    64,    67,    68,    69,
+      70,    71,    74,    75,    76,    80,    81,    84,    85,    87,
+      88,    91,    94,    97,    98,   101,   102,   105,   106,   107,
+     108,   109,   110,   111,   112,   113,   114,   115,   116,   117,
+     118,   119,   120,   123,   126,   127,   130,   133,   134,   137,
+     138,   139,   140,   143,   144,   147,   148,   151,   154,   157,
+     160,   163,   167,   170,   171,   174,   175,   176,   177,   180,
+     181,   184,   185,   186,   187,   188,   191,   192,   195,   196,
+     197,   198,   199,   200,   201,   202,   203,   204,   205,   206,
+     207,   208,   209,   210,   211,   212,   213,   214,   215,   218,
+     219,   220,   221,   222,   223,   224,   227,   228,   231,   234,
+     235,   238,   239,   242,   243,   244,   245,   246,   249,   250,
+     253,   257,   260,   261,   262,   265,   266,   267,   270,   271,
+     274,   275,   278,   281,   284,   285,   288,   289,   292,   293,
+     296,   299,   302,   303,   306,   307,   310,   311
 };
 #endif
 
@@ -1842,7 +1843,7 @@ yyreduce:
       
 
 /* Line 1455 of yacc.c  */
-#line 1846 "parser.tab.c"
+#line 1847 "parser.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2054,7 +2055,7 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 314 "parser.y"
+#line 315 "parser.y"
 
 
 
@@ -2068,25 +2069,35 @@ int main (int argc, char *argv[]){
 
 	init_hash_table();
         
-        printf("Enter Warden Source File:\n");
-        scanf("%123s",str);
-        strcat(str,".wd");
-        yyin = fopen("sample.wd", "r"); 
-        if(yyin == NULL){
-                printf("File not detected or different file\n");
-                return 1;
-        }
+        printf("Enter Warden Source File with 'ward [sourcefile.wd]':\n");
+        scanf("%s", str);
+        scanf("%s", src);
+        // ward sample.wds
         
+	char search[] = "ward";
+	char *ptr = strstr(str, search);
+
+	if (ptr != NULL) /* Substring found */
+	{
+		yyin = fopen(src, "r"); 
+                if(yyin == NULL){
+                        printf("File not detected or different file\n");
+                        return 1;
+                }
+	}
+	else /* Substring not found */
+	{
+		printf("\nPlease include \"ward\" then source file!\n\n");
+                return 1;
+	}
+
+
         /* yydebug = 1; */
         yyparse();
 	fclose(yyin);
 	
-
-	printf("\n\nParsing finished! No errors found!");
+	printf("\n\nParsing finished! No errors found!\n\n");
 	
-	yyout = fopen("symtab_dump.out", "w");
-	symtab_dump(yyout);
-	fclose(yyout);
-	
-	return 0;
+        system("pause");
+        return 0;
 }

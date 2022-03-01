@@ -9,12 +9,13 @@
 	extern int lineno;
 	extern int yylex();
 	void yyerror();
-        char str[20];
+        char str[5];
+        char src[20];
 %}
 
 /* YYSTYPE union */
 %union{
-    char char_val;
+        char char_val;
 	int int_val;
 	double double_val;
 	char* str_val;
@@ -324,25 +325,33 @@ int main (int argc, char *argv[]){
 
 	init_hash_table();
         
-        printf("Enter Warden Source File:\n");
-        scanf("%123s",str);
-        strcat(str,".wd");
-        yyin = fopen("sample.wd", "r"); 
-        if(yyin == NULL){
-                printf("File not detected or different file\n");
-                return 1;
-        }
+        printf("Enter Warden Source File with 'ward [sourcefile.wd]':\n");
+        scanf("%s", str);
+        scanf("%s", src);
         
+	char search[] = "ward";
+	char *ptr = strstr(str, search);
+
+	if (ptr != NULL)
+	{
+		yyin = fopen(src, "r"); 
+                if(yyin == NULL){
+                        printf("File not detected or different file\n");
+                        return 1;
+                }
+	}
+	else
+	{
+		printf("\nPlease include \"ward\" then source file!\n\n");
+                return 1;
+	}
+
+
         /* yydebug = 1; */
         yyparse();
 	fclose(yyin);
 	
-
 	printf("\n\nParsing finished! No errors found!\n\n");
-	
-	yyout = fopen("symtab_dump.out", "w");
-	symtab_dump(yyout);
-	fclose(yyout);
 	
         system("pause");
         return 0;
