@@ -16,13 +16,12 @@ fn main()int{
     */
     // this is also a line comment
 
-    for (i = 0; 8 > i; i++)
-    {
-        ttl = a + i;
+    for (var i int = 0; i > a; i < 8){
+    /*    ttl = a + i;
         ttl = b - i;
         ttl = ttl * b;
         ttl = a / ttl;
-        ttl = a % i;
+        ttl = a % i; */
         b--;
         ttl = 2 * i**2;
     }
@@ -35,10 +34,10 @@ fn main()int{
     return 0;
 }
 
-fn set(num: int, total: double)void{
+fn set(num: int, total: single)void{
     var i int = 0;
     dotimes (i num){
-        if (i < 5 || i > 10){
+        if (a > 5){
             print("First set: $i");
         }
         else {

@@ -37,7 +37,7 @@
 
 %nonassoc SEMIDEM 
 %nonassoc LBRACK RBRACK LBRACEDEM RBRACEDEM LPAREN RPAREN NOTOP
-%left GTHANOP LTHANOP GEQTHANOP LEQTHANOP EQUOP ANDOP OROP NOTEQUOP
+%token GTHANOP LTHANOP GEQTHANOP LEQTHANOP EQUOP ANDOP OROP NOTEQUOP
 %right ASSIGN ADDEQOP MINEQOP MULEQOP DIVEQOP MODEQOP COLON
 %right IINCROP DINCROP REFERVAR
 %left EXPOP ADDOP MINOP COMMA
@@ -154,7 +154,7 @@ do_times_statement      : DOTIMES LPAREN expression RPAREN tail
 switch_statement        : SWITCH LPAREN expression RPAREN LBRACEDEM switch_expression switch_default RBRACEDEM
                         ;
 
-for_statement   : FOR LPAREN assignment SEMIDEM expression SEMIDEM expression RPAREN tail 
+for_statement   : FOR LPAREN expression SEMIDEM expression SEMIDEM expression RPAREN tail 
                 ;
 
 while_statement : WHILE LPAREN expression RPAREN tail 
@@ -188,6 +188,10 @@ assop   : ADDEQOP
         | MODEQOP
         ;
 
+logop   : OROP
+        | ANDOP
+        ;
+
 expression      : expression ADDOP expression 
                 | expression MINOP expression
                 | expression MULOP expression 
@@ -195,11 +199,10 @@ expression      : expression ADDOP expression
                 | expression MODOP expression
                 | expression assop expression
                 | variable EXPOP
-                | ID incrop 
-                | incrop ID 
-                | variable variable
-                | expression OROP expression 
-                | expression ANDOP expression 
+                | variable incrop 
+                | incrop variable 
+                | ID ID
+                | expression logop expression 
                 | NOTOP expression 
                 | expression equop expression 
                 | expression relop expression 
@@ -209,8 +212,7 @@ expression      : expression ADDOP expression
                 | function_call
                 | switch_expression
                 | declaration
-                | ID
-                | constant
+                | variable
                 ;
 
  array_exp      : expression ADDOP expression 
@@ -250,7 +252,7 @@ var_ref : variable
         | REFERVAR variable 
         ;
 
-function_call   : ID LPAREN call_params RPAREN
+function_call   : ID LPAREN call_params RPAREN SEMIDEM
                 ;
 
 call_params     : call_param 
@@ -259,7 +261,10 @@ call_params     : call_param
                 ;
 
 call_param      : call_param COMMA expression 
-                | expression ;
+                | expression
+                | ID 
+                |
+                ;
 
 functions_optional      : functions 
                         | /* empty */ 
@@ -287,7 +292,7 @@ parameters      : parameters COMMA parameter
                 | parameter 
                 ;
 
-parameter       : variable COLON type
+parameter       : ID COLON type
                 ;
 
 function_tail   : LBRACEDEM declarations_optional statements_optional return_optional RBRACEDEM 
@@ -320,10 +325,10 @@ int main (int argc, char *argv[]){
 	// initialize symbol table
 	init_hash_table();
         
-        printf("Enter Warden Source File:\n");
+        /* printf("Enter Warden Source File:\n");
         scanf("%123s",str);
-        strcat(str,".wd");
-        yyin = fopen(str, "r"); 
+        strcat(str,".wd"); */
+        yyin = fopen("sample.wd", "r"); 
         if(yyin == NULL){
                 printf("File not detected or different file\n");
                 return 1;
