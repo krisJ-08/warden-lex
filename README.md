@@ -42,14 +42,14 @@ __2. Download the project in a ZIP folder__
 
 __3. Click the path in the File Explorer like in the Image:__
 
-![image](https://user-images.githubusercontent.com/77821151/152737546-655998a7-5f0a-4712-9a3b-d58159964b7c.png)
+![image](https://user-images.githubusercontent.com/77821151/156102703-062978d0-5e02-4c05-9210-db429ff73e6f.png)
 
     Then type "cmd" to open the command prompt
     
     
 __4. Run the Lex and Syntax Warden EXE file in CMD__
 ```
-asd    \\ It will generate the lex.yy.c file
+asd    \\ It will run the pre configure commands to run Flex and Bison
 
 ```
 __5. Run the asd.bat script file__
