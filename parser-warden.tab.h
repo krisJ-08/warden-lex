@@ -115,7 +115,7 @@ typedef union YYSTYPE
 {
 
 /* Line 1676 of yacc.c  */
-#line 17 "parser.y"
+#line 17 "parser-warden.y"
 
         char char_val;
 	int int_val;
@@ -126,7 +126,7 @@ typedef union YYSTYPE
 
 
 /* Line 1676 of yacc.c  */
-#line 130 "parser.tab.h"
+#line 130 "parser-warden.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

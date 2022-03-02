@@ -548,14 +548,14 @@ static char *yy_last_accepting_cpos;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "lex.l"
+#line 1 "lexical-warden.l"
 #define INITIAL 0
-#line 4 "lex.l"
+#line 4 "lexical-warden.l"
 	#include <stdio.h>
 	#include <stdlib.h>
 	#include <string.h>
 	#include "symtab.h"
-	#include "parser.tab.h"
+	#include "parser-warden.tab.h"
 	extern FILE *yyin;
 	extern FILE *yyout;
 	
@@ -715,7 +715,7 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
 
-#line 32 "lex.l"
+#line 32 "lexical-warden.l"
 
 
 #line 722 "lex.yy.c"
@@ -803,342 +803,342 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 34 "lex.l"
+#line 34 "lexical-warden.l"
 { printf("Eat up comment at line %d\n", lineno); } 
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 36 "lex.l"
+#line 36 "lexical-warden.l"
 { printf("Eat up comment from line %d ", lineno); BEGIN(ML_COMMENT); }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 37 "lex.l"
+#line 37 "lexical-warden.l"
 { printf("to line %d\n", lineno); BEGIN(INITIAL); }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 38 "lex.l"
+#line 38 "lexical-warden.l"
 
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 39 "lex.l"
+#line 39 "lexical-warden.l"
 
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 40 "lex.l"
+#line 40 "lexical-warden.l"
 { lineno += 1; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 43 "lex.l"
+#line 43 "lexical-warden.l"
 { return CHAR; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 44 "lex.l"
+#line 44 "lexical-warden.l"
 { return INT; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 45 "lex.l"
+#line 45 "lexical-warden.l"
 { return SINGLE; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 46 "lex.l"
+#line 46 "lexical-warden.l"
 { return IF; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 47 "lex.l"
+#line 47 "lexical-warden.l"
 { return ELSE; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 48 "lex.l"
+#line 48 "lexical-warden.l"
 { return WHILE; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 49 "lex.l"
+#line 49 "lexical-warden.l"
 { return FOR; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 50 "lex.l"
+#line 50 "lexical-warden.l"
 { return CONTINUE; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 51 "lex.l"
+#line 51 "lexical-warden.l"
 { return BREAK; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 52 "lex.l"
+#line 52 "lexical-warden.l"
 { return RETURN; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 53 "lex.l"
+#line 53 "lexical-warden.l"
 { return DEFAULT; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 54 "lex.l"
+#line 54 "lexical-warden.l"
 { return UNLESS; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 55 "lex.l"
+#line 55 "lexical-warden.l"
 { return DOTIMES; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 56 "lex.l"
+#line 56 "lexical-warden.l"
 { return SWITCH; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 57 "lex.l"
+#line 57 "lexical-warden.l"
 { return MAIN; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 58 "lex.l"
+#line 58 "lexical-warden.l"
 { return FALSE; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 59 "lex.l"
+#line 59 "lexical-warden.l"
 { return TRUE; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 60 "lex.l"
+#line 60 "lexical-warden.l"
 { return VAR; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 61 "lex.l"
+#line 61 "lexical-warden.l"
 { return TSTRING; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 62 "lex.l"
+#line 62 "lexical-warden.l"
 { return FUNCTION; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 63 "lex.l"
+#line 63 "lexical-warden.l"
 { return DO; }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 64 "lex.l"
+#line 64 "lexical-warden.l"
 { return BOOL; }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 65 "lex.l"
+#line 65 "lexical-warden.l"
 { return VOID; }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 66 "lex.l"
+#line 66 "lexical-warden.l"
 { return OUTPUT; }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 67 "lex.l"
+#line 67 "lexical-warden.l"
 { return OUTPUTNL; }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 68 "lex.l"
+#line 68 "lexical-warden.l"
 { return INPUT; }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 69 "lex.l"
+#line 69 "lexical-warden.l"
 { return CASE; }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 72 "lex.l"
+#line 72 "lexical-warden.l"
 { return ADDOP; }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 73 "lex.l"
+#line 73 "lexical-warden.l"
 { return MINOP; }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 74 "lex.l"
+#line 74 "lexical-warden.l"
 { return MULOP; }
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 75 "lex.l"
+#line 75 "lexical-warden.l"
 { return DIVOP; }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 76 "lex.l"
+#line 76 "lexical-warden.l"
 { return IINCROP; }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 77 "lex.l"
+#line 77 "lexical-warden.l"
 { return DINCROP; }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 78 "lex.l"
+#line 78 "lexical-warden.l"
 { return OROP; }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 79 "lex.l"
+#line 79 "lexical-warden.l"
 { return ANDOP; }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 80 "lex.l"
+#line 80 "lexical-warden.l"
 { return NOTOP; }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 81 "lex.l"
+#line 81 "lexical-warden.l"
 { return EQUOP; }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 82 "lex.l"
+#line 82 "lexical-warden.l"
 { return NOTEQUOP; }
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 83 "lex.l"
+#line 83 "lexical-warden.l"
 { return GTHANOP; }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 84 "lex.l"
+#line 84 "lexical-warden.l"
 { return LTHANOP; }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 85 "lex.l"
+#line 85 "lexical-warden.l"
 { return GEQTHANOP; }
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 86 "lex.l"
+#line 86 "lexical-warden.l"
 { return LEQTHANOP; }
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 87 "lex.l"
+#line 87 "lexical-warden.l"
 { return EXPOP; }
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 88 "lex.l"
+#line 88 "lexical-warden.l"
 { return MODOP; }
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 89 "lex.l"
+#line 89 "lexical-warden.l"
 { return MINEQOP; }
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 90 "lex.l"
+#line 90 "lexical-warden.l"
 { return ADDEQOP; }
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 91 "lex.l"
+#line 91 "lexical-warden.l"
 { return MULEQOP; }
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 92 "lex.l"
+#line 92 "lexical-warden.l"
 { return DIVEQOP; }
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 93 "lex.l"
+#line 93 "lexical-warden.l"
 { return MODEQOP; }
 	YY_BREAK
 case 56:
 YY_RULE_SETUP
-#line 98 "lex.l"
+#line 98 "lexical-warden.l"
 { return LPAREN; }
 	YY_BREAK
 case 57:
 YY_RULE_SETUP
-#line 99 "lex.l"
+#line 99 "lexical-warden.l"
 { return RPAREN; }
 	YY_BREAK
 case 58:
 YY_RULE_SETUP
-#line 100 "lex.l"
+#line 100 "lexical-warden.l"
 { return LBRACK; }
 	YY_BREAK
 case 59:
 YY_RULE_SETUP
-#line 101 "lex.l"
+#line 101 "lexical-warden.l"
 { return RBRACK; }
 	YY_BREAK
 case 60:
 YY_RULE_SETUP
-#line 102 "lex.l"
+#line 102 "lexical-warden.l"
 { return LBRACEDEM; }
 	YY_BREAK
 case 61:
 YY_RULE_SETUP
-#line 103 "lex.l"
+#line 103 "lexical-warden.l"
 { return RBRACEDEM; }
 	YY_BREAK
 case 62:
 YY_RULE_SETUP
-#line 104 "lex.l"
+#line 104 "lexical-warden.l"
 { return COLON; }
 	YY_BREAK
 case 63:
 YY_RULE_SETUP
-#line 105 "lex.l"
+#line 105 "lexical-warden.l"
 { return SEMIDEM; }
 	YY_BREAK
 case 64:
 YY_RULE_SETUP
-#line 106 "lex.l"
+#line 106 "lexical-warden.l"
 { return DOT; }
 	YY_BREAK
 case 65:
 YY_RULE_SETUP
-#line 107 "lex.l"
+#line 107 "lexical-warden.l"
 { return COMMA; }
 	YY_BREAK
 case 66:
 YY_RULE_SETUP
-#line 108 "lex.l"
+#line 108 "lexical-warden.l"
 { return ASSIGN; }
 	YY_BREAK
 case 67:
 YY_RULE_SETUP
-#line 109 "lex.l"
+#line 109 "lexical-warden.l"
 { return REFERVAR; }
 	YY_BREAK
 case 68:
 YY_RULE_SETUP
-#line 113 "lex.l"
+#line 113 "lexical-warden.l"
 {
         // insert identifier into symbol table
         insert(yytext, strlen(yytext), UNDEF, lineno);
@@ -1148,43 +1148,43 @@ YY_RULE_SETUP
 	YY_BREAK
 case 69:
 YY_RULE_SETUP
-#line 119 "lex.l"
+#line 119 "lexical-warden.l"
 { yylval.int_val   = atoi(yytext); return ICONST; }
 	YY_BREAK
 case 70:
 YY_RULE_SETUP
-#line 120 "lex.l"
+#line 120 "lexical-warden.l"
 { yylval.double_val = atof(yytext); return FCONST; }
 	YY_BREAK
 case 71:
 YY_RULE_SETUP
-#line 121 "lex.l"
+#line 121 "lexical-warden.l"
 { yylval.char_val  = yytext[0];    return CCONST; }
 	YY_BREAK
 case 72:
 YY_RULE_SETUP
-#line 122 "lex.l"
+#line 122 "lexical-warden.l"
 { yylval.str_val = malloc(yyleng * sizeof(char));
               strcpy(yylval.str_val, yytext);  return SCONST; }
 	YY_BREAK
 case 73:
 YY_RULE_SETUP
-#line 127 "lex.l"
+#line 127 "lexical-warden.l"
 { lineno += 1; }
 	YY_BREAK
 case 74:
 YY_RULE_SETUP
-#line 128 "lex.l"
+#line 128 "lexical-warden.l"
 /* eat up whitespace */
 	YY_BREAK
 case 75:
 YY_RULE_SETUP
-#line 130 "lex.l"
+#line 130 "lexical-warden.l"
 { yyerror("Unrecognized character"); }
 	YY_BREAK
 case 76:
 YY_RULE_SETUP
-#line 132 "lex.l"
+#line 132 "lexical-warden.l"
 ECHO;
 	YY_BREAK
 #line 1191 "lex.yy.c"
@@ -2074,4 +2074,4 @@ int main()
 	return 0;
 	}
 #endif
-#line 132 "lex.l"
+#line 132 "lexical-warden.l"

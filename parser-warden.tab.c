@@ -68,7 +68,7 @@
 /* Copy the first part of user declarations.  */
 
 /* Line 189 of yacc.c  */
-#line 1 "parser.y"
+#line 1 "parser-warden.y"
 
 	#include "symtab.c"
 	#include <stdio.h>
@@ -85,7 +85,7 @@
 
 
 /* Line 189 of yacc.c  */
-#line 89 "parser.tab.c"
+#line 89 "parser-warden.tab.c"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -188,7 +188,7 @@ typedef union YYSTYPE
 {
 
 /* Line 214 of yacc.c  */
-#line 17 "parser.y"
+#line 17 "parser-warden.y"
 
         char char_val;
 	int int_val;
@@ -199,7 +199,7 @@ typedef union YYSTYPE
 
 
 /* Line 214 of yacc.c  */
-#line 203 "parser.tab.c"
+#line 203 "parser-warden.tab.c"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -211,7 +211,7 @@ typedef union YYSTYPE
 
 
 /* Line 264 of yacc.c  */
-#line 215 "parser.tab.c"
+#line 215 "parser-warden.tab.c"
 
 #ifdef short
 # undef short
@@ -1843,7 +1843,7 @@ yyreduce:
       
 
 /* Line 1455 of yacc.c  */
-#line 1847 "parser.tab.c"
+#line 1847 "parser-warden.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2055,14 +2055,16 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 315 "parser.y"
+#line 315 "parser-warden.y"
 
 
 
 void yyerror ()
 {
-  fprintf(stderr, "Syntax error at line %d\n", lineno);
+  fprintf(stderr, "Syntax error at line %d\n\n\n", lineno);
+  system("pause");
   exit(1);
+  
 }
 
 int main (int argc, char *argv[]){
@@ -2072,12 +2074,11 @@ int main (int argc, char *argv[]){
         printf("Enter Warden Source File with 'ward [sourcefile.wd]':\n");
         scanf("%s", str);
         scanf("%s", src);
-        // ward sample.wds
         
 	char search[] = "ward";
 	char *ptr = strstr(str, search);
 
-	if (ptr != NULL) /* Substring found */
+	if (ptr != NULL)
 	{
 		yyin = fopen(src, "r"); 
                 if(yyin == NULL){
@@ -2085,7 +2086,7 @@ int main (int argc, char *argv[]){
                         return 1;
                 }
 	}
-	else /* Substring not found */
+	else
 	{
 		printf("\nPlease include \"ward\" then source file!\n\n");
                 return 1;

@@ -317,8 +317,10 @@ return_optional         : RETURN expression SEMIDEM
 
 void yyerror ()
 {
-  fprintf(stderr, "Syntax error at line %d\n", lineno);
+  fprintf(stderr, "Syntax error at line %d\n\n\n", lineno);
+  system("pause");
   exit(1);
+  
 }
 
 int main (int argc, char *argv[]){

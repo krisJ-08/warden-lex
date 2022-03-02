@@ -5,7 +5,7 @@
 	#include <stdlib.h>
 	#include <string.h>
 	#include "symtab.h"
-	#include "parser.tab.h"
+	#include "parser-warden.tab.h"
 	extern FILE *yyin;
 	extern FILE *yyout;
 	
