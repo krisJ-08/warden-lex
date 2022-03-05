@@ -11,6 +11,8 @@
 	void yyerror();
         char str[5];
         char src[20];
+
+        
 %}
 
 /* YYSTYPE union */
@@ -51,18 +53,22 @@
 
 %%
 
-program         : func_main LBRACEDEM declarations statements RETURN constant SEMIDEM RBRACEDEM functions_optional
+program         : func_main LBRACEDEM declarations_optional statements RETURN constant SEMIDEM RBRACEDEM functions_optional
                 ;
+
+// ############### DECLARATIONS ###########################
 
 declarations    : declarations declaration 
                 | declaration
                 ;
 
-func_main       : FUNCTION MAIN LPAREN RPAREN return_type
+func_main       : FUNCTION MAIN LPAREN RPAREN main_return_type
                 ;
 
 declaration     : VAR var_names SEMIDEM
                 ;
+
+// ############### DATA TYPE ###########################
 
 type    : INT 
         | CHAR 
@@ -71,32 +77,35 @@ type    : INT
         | TSTRING
         ;
 
-var_names       : variable
-                | var_names COMMA
+// ############### IDENTIFIERS ###########################
+
+var_names       : ID COMMA var_names
+                | ID array COMMA var_names
                 | init
                 ;
 
 
-variable        : ID type
-                | ID array type
-                ;
-
 array   : array LBRACK array_exp RBRACK 
-        | LBRACK array_exp RBRACK ;
+        | LBRACK array_exp RBRACK 
+        ;
+
+// ############### INITIAL VALUES ###########################
 
 init    : var_init 
         | array_init
         ;
 
-var_init        : ID type ASSIGN constant
+var_init        : ID type ASSIGN expression
                 ;
 
-array_init      : ID array type ASSIGN LBRACEDEM values RBRACEDEM 
+array_init      : ID array type ASSIGN LBRACEDEM array_values RBRACEDEM 
                 ;
 
-values  : values COMMA constant 
-        | constant 
-        ;
+array_values    : array_values COMMA constant 
+                | constant 
+                ;
+
+// ############### STATEMENTS ###########################
 
 statements      : statements statement 
                 | statement 
@@ -120,7 +129,9 @@ statement       : if_statement
                 | expression
                 ;
 
-input_statement : variable ASSIGN INPUT LPAREN RPAREN SEMIDEM
+// ############### INPUT AND OUTPUT ###########################
+
+input_statement : declaration ASSIGN INPUT LPAREN RPAREN SEMIDEM
                 ;
 
 outputall       : OUTPUT
@@ -129,6 +140,9 @@ outputall       : OUTPUT
 
 output_statement        : outputall LPAREN expression RPAREN SEMIDEM
                         ;
+
+
+// ############### CONDITION STATEMENTS ###########################
 
 if_statement    : IF LPAREN expression RPAREN tail else_if optional_else 
                 | IF LPAREN expression RPAREN tail optional_else
@@ -154,6 +168,20 @@ do_times_statement      : DOTIMES LPAREN expression RPAREN tail
 switch_statement        : SWITCH LPAREN expression RPAREN LBRACEDEM switch_expression switch_default RBRACEDEM
                         ;
 
+break_keyword   : BREAK
+                | /* empty */
+                ;
+
+switch_expression       : CASE constant COLON statement break_keyword
+                        ;
+
+switch_default  : DEFAULT statement
+                | DEFAULT
+                ;
+
+
+// ############### LOOP STATEMENTS ###########################
+
 for_statement   : FOR LPAREN expression expression SEMIDEM expression RPAREN tail
                 ;
 
@@ -163,9 +191,12 @@ while_statement : WHILE LPAREN expression RPAREN tail
 do_while_statement      : DO tail WHILE LPAREN expression RPAREN SEMIDEM
                         ;
 
+// ############### EXPRESSION IN STATEMENTS ###########################
 
 tail    : LBRACEDEM statements RBRACEDEM
         ;
+
+ // ############### OPERATORS ###########################       
 
 incrop  : IINCROP
         | DINCROP
@@ -192,11 +223,15 @@ logop   : OROP
         | ANDOP
         ;
 
-expression      : expression ADDOP expression 
-                | expression MINOP expression
-                | expression MULOP expression 
-                | expression DIVOP expression
-                | expression MODOP expression
+arthio  : ADDOP 
+        | MINOP
+        | MULOP 
+        | DIVOP
+        | MODOP
+
+// ############### EXPRESSIONS ###########################
+
+expression      : expression arthio expression 
                 | expression assop expression
                 | expression EXPOP
                 | ID incrop 
@@ -211,29 +246,16 @@ expression      : expression ADDOP expression
                 | function_call
                 | switch_expression
                 | declaration
-                | variable
                 | ID
                 ;
 
- array_exp      : expression ADDOP expression 
-                | expression MINOP expression
-                | expression MULOP expression 
-                | expression DIVOP expression
-                | expression MODOP expression
+
+ array_exp      : expression arthio expression 
                 | constant
                 |
                 ; 
 
-break_keyword   : BREAK
-                | /* empty */
-                ;
-
-switch_expression       : CASE constant COLON statement break_keyword
-                        ;
-
-switch_default  : DEFAULT statement
-                | DEFAULT
-                ;
+// ############### CONSTANTS ###########################
 
 sign    : MINOP 
         | /* empty */ 
@@ -250,9 +272,13 @@ bool_const      : TRUE
                 | FALSE
                 ;
 
+// ############### ASSIGNMENT ###########################
+
 assignment      : ID ASSIGN expression 
                 ;
 
+
+// ############### FUNCTIONS ###########################
 
 function_call   : ID LPAREN call_params RPAREN SEMIDEM
                 ;
@@ -285,6 +311,10 @@ return_type     : type
                 | VOID 
                 ;
 
+main_return_type        : INT
+                        | VOID
+                        ;
+
 parameters_optional     : parameters 
                         | /* empty */ 
                         ;
@@ -298,6 +328,8 @@ parameter       : ID COLON type
 
 function_tail   : LBRACEDEM declarations_optional statements_optional return_optional RBRACEDEM 
                 ;
+
+// ############### OPTIONALS ###########################
 
 declarations_optional   : declarations 
                         | /* empty */ 
@@ -349,7 +381,6 @@ int main (int argc, char *argv[]){
 	}
 
 
-        /* yydebug = 1; */
         yyparse();
 	fclose(yyin);
 	

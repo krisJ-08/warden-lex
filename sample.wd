@@ -1,15 +1,14 @@
-fn main()int{
-    var a int = -69;
-    var b integer = 420;
+fn main() int {
+    var a int = 56 + 54;
+    var b, er, ty, hg integer = 420;
     var dec single = -44.78;
     var ttl single = 0.0;
     var ltr char = 'g';
     var boss string = "bossman";
-    var arr[] int = {1, 2, 3, 4, 5, 6, 7, 8};
+    var arr[], raa[], yu[] int = {1, 2, 3, 4, 5, 6, 7, 8};
     var isCorrect bool =  false;
     var isWrong boolean =  true;
     //this is a comment
-
 
     /*
     this
