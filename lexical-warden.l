@@ -1,4 +1,4 @@
-%option noyywrap
+%option noyywrap noinput nounput yylineno
 
 %{
 	#include <stdio.h>
@@ -8,7 +8,7 @@
 	#include "parser-warden.tab.h"
 	extern FILE *yyin;
 	extern FILE *yyout;
-	
+	extern int yylineno;
 	int lineno = 1; // initialize to 1
 	void ret_print(char *token_type);
 	void yyerror();
@@ -127,6 +127,6 @@ SCONST      \"{print}*\"
 "\n"        { lineno += 1; }
 [ \t\r\f]+  /* eat up whitespace */
 
-.       { yyerror("Unrecognized character"); }
+.       { yyerror("Invalid Identifier"); }
 
 %%

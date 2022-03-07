@@ -6,11 +6,12 @@
         #include <process.h>
 	extern FILE *yyin;
 	extern FILE *yyout;
-	extern int lineno;
+	extern int yylineno;
 	extern int yylex();
-	void yyerror();
         char str[5];
         char src[20];
+        #define YYERROR_VERBOSE 1
+        void yyerror(const char *s);
 
         
 %}
@@ -347,12 +348,11 @@ return_optional         : RETURN expression SEMIDEM
 %%
 
 
-void yyerror ()
+void yyerror(const char *str)
 {
-  fprintf(stderr, "Syntax error at line %d\n\n\n", lineno);
-  system("pause");
-  exit(1);
-  
+    fprintf(stderr,"error: %s in line %d\n", str, yylineno);
+    fprintf(stderr,"^\n");
+    exit(1);
 }
 
 int main (int argc, char *argv[]){
